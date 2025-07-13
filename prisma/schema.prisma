@@ -63,6 +63,7 @@ model Product {
   name        String
   description String
   price       Decimal
+  isVisible   Boolean
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -102,6 +103,7 @@ model VRContent {
   title       String
   description String
   source      String
+  isVisible   Boolean
   category    VRCategory
   created_at  DateTime   @default(now())
   updated_at  DateTime   @updatedAt
