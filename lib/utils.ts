@@ -1,19 +1,16 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import {
-  PutObjectCommand,
   S3Client,
   DeleteObjectsCommand,
 } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { v4 as uuidv4 } from 'uuid';
 
 export const s3Client = new S3Client({
   region: 'auto',
-  endpoint: process.env.R2_ENDPOINT as string,
+  endpoint: process.env.S3_ENDPOINT as string,
   credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID as string,
-    secretAccessKey: process.env.R2_SECRET_KEY as string,
+    accessKeyId: process.env.S3_ACCESS_KEY as string,
+    secretAccessKey: process.env.S3_SECRET_KEY as string,
   },
 });
 
@@ -21,34 +18,44 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function uploadToS3(file: File, dir: string) {
-  const key = `${dir}/${uuidv4()}-${file.name}`;
-
-  const command = new PutObjectCommand({
-    Bucket: process.env.R2_BUCKET,
-    Key: key,
-    ContentType: file.type,
+export async function uploadToS3(file: File): Promise<string> {
+  const res = await fetch('/api/s3/upload-url', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      filename: file.name,
+      fileType: file.type,
+    }),
   });
 
-  const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+  if (!res.ok) {
+    throw new Error('Gagal mendapatkan URL upload');
+  }
 
-  await fetch(url, {
+  const { url, key } = await res.json();
+
+  const upload = await fetch(url, {
     method: 'PUT',
-    headers: { 'Content-Type': file.type },
+    headers: {
+      'Content-Type': file.type,
+    },
     body: file,
   });
 
-  return `${process.env.R2_PUBLIC_URL}/${key}`;
+  if (!upload.ok) {
+    throw new Error('Upload ke S3 gagal');
+  }
+
+  return key;
 }
 
 export async function deleteFilesFromS3(fileKeys: string[]) {
   const objectsToDelete = fileKeys.map((key) => ({ Key: key }));
   const command = new DeleteObjectsCommand({
-    Bucket: process.env.R2_BUCKET as string,
+    Bucket: process.env.S3_BUCKET as string,
     Delete: { Objects: objectsToDelete },
   });
   const response = await s3Client.send(command);
-  console.log('Files deleted successfully:', response);
   return response;
 }
 

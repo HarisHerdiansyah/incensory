@@ -19,6 +19,8 @@ export async function createProduct(formData: FormData) {
     return { success: false, message: 'Semua data wajib diisi dengan benar' };
   }
 
+  if (isNaN(price) || price < 0) throw new Error('Harga tidak valid');
+
   try {
     await db.$transaction(async (tx) => {
       const newProduct = await tx.product.create({
@@ -68,6 +70,7 @@ export async function updateProduct(formData: FormData) {
     parseJsonSafe<{ [K in LinkTarget]?: string }>(updatedLinksRaw) || {};
   const uploadedImages = parseJsonSafe<string[]>(uploadedImagesRaw) || [];
   const deletedImages = parseJsonSafe<string[]>(deletedImagesRaw) || [];
+  console.log(updatedProduct);
 
   try {
     await db.$transaction(async (tx) => {
@@ -114,5 +117,22 @@ export async function updateProduct(formData: FormData) {
   } catch (err) {
     console.error('[UPDATE_PRODUCT]', err);
     return { success: false, message: 'Gagal memperbarui produk' };
+  }
+}
+
+export async function getProductById(id: string) {
+  try {
+    const product = await db.product.findUnique({
+      where: { id },
+      include: {
+        product_links: true,
+        product_images: true,
+      },
+    });
+
+    return product;
+  } catch (err) {
+    console.error('[GET_PRODUCT]', err);
+    return null;
   }
 }
