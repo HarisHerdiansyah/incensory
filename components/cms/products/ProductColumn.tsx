@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import { ColumnDef } from '@tanstack/react-table';
-import { deleteProduct } from '@/actions/products';
+import { archiveProduct } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import { ProductResponse } from './types';
+import clsx from 'clsx';
 
 const columns: ColumnDef<ProductResponse>[] = [
   {
@@ -17,12 +18,20 @@ const columns: ColumnDef<ProductResponse>[] = [
     header: 'Harga',
   },
   {
+    accessorKey: 'isVisible',
+    header: 'Tampilan',
+    cell: ({ row }) => {
+      const product = row.original;
+      return product.isVisible ? 'Publik' : 'Diarsipkan';
+    },
+  },
+  {
     header: 'Aksi',
     cell: ({ row }) => {
       const product = row.original;
 
-      const handleDelete = async () => {
-        const response = await deleteProduct(product.id);
+      const handleArchive = async () => {
+        const response = await archiveProduct(product.id, !product.isVisible);
         if (response.success) {
           toast.success(response.message);
         } else {
@@ -41,11 +50,14 @@ const columns: ColumnDef<ProductResponse>[] = [
             </Button>
           </Link>
           <Button
-            className='bg-red-600 hover:bg-red-700 cursor-pointer'
+            className={clsx('cursor-pointer', {
+              'bg-red-600 hover:bg-red-700': product.isVisible,
+              'bg-accent': !product.isVisible,
+            })}
             size='sm'
-            onClick={handleDelete}
+            onClick={handleArchive}
           >
-            Hapus
+            {product.isVisible ? 'Arsipkan' : 'Tampilkan'}
           </Button>
         </div>
       );

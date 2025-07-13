@@ -33,12 +33,12 @@ export default function SidebarContent() {
           <li
             key={href}
             className={
-              isActive ? 'bg-primary rounded-lg text-white' : undefined
+              isActive ? 'bg-secondary rounded-lg text-white' : undefined
             }
           >
             <Link
-              className={`hover:bg-primary hover:text-primary-foreground p-1.5 rounded-lg font-semibold cursor-pointer flex items-center gap-2 ${
-                isActive ? 'bg-primary text-white' : ''
+              className={`hover:bg-secondary hover:text-secondary-foreground p-1.5 rounded-lg font-semibold cursor-pointer flex items-center gap-2 ${
+                isActive ? 'bg-secondary text-white' : ''
               }`}
               href={href}
             >

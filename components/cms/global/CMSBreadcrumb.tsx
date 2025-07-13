@@ -25,7 +25,7 @@ export default function CMSBreadcrumb() {
     });
 
   return (
-    <header className='flex h-12 items-center gap-1 bg-primary pl-2 pr-4 rounded-lg w-full'>
+    <header className='flex h-12 items-center gap-1 bg-secondary pl-2 pr-4 rounded-lg w-full'>
       <SidebarTrigger />
       <Separator
         orientation='vertical'
@@ -37,7 +37,7 @@ export default function CMSBreadcrumb() {
           {extractedPath.map((path, i) => (
             <div key={i} className='flex items-center'>
               <BreadcrumbItem
-                className='text-primary-foreground font-semibold uppercase'
+                className='text-secondary-foreground font-semibold uppercase'
                 key={path.itemKey}
               >
                 {path.path}
@@ -45,7 +45,7 @@ export default function CMSBreadcrumb() {
               {i < extractedPath.length - 1 && (
                 <BreadcrumbSeparator
                   key={path.separatorKey}
-                  className='text-primary-foreground ml-2'
+                  className='text-secondary-foreground ml-2'
                 />
               )}
             </div>

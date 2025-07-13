@@ -14,11 +14,11 @@ export default function CustomerLayout({
   return (
     <SidebarProvider>
       <Sidebar>
-        <div className='w-full h-full border-r-4 border-primary p-6'>
+        <div className='w-full h-full border-r-4 border-secondary p-6'>
           <Image src={Wording} alt='Incensory' width={220} height={120} />
           <SidebarContent />
         </div>
-        <SidebarFooter className='border-r-4 border-primary'>
+        <SidebarFooter className='border-r-4 border-secondary'>
           <LogoutBtn />
         </SidebarFooter>
       </Sidebar>

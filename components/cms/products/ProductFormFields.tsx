@@ -8,10 +8,12 @@ import { ProductProps } from './types';
 
 export default function ProductFormFields({ values, onChange }: ProductProps) {
   return (
-    <div className='space-y-6'>
+    <div className='grid grid-cols-2 space-y-6 gap-6'>
       {/* Name */}
-      <div>
-        <Label htmlFor='name'>Nama Produk</Label>
+      <div id='formControl'>
+        <Label className='mb-3' htmlFor='name'>
+          Nama Produk
+        </Label>
         <Input
           id='name'
           value={values.name}
@@ -19,19 +21,11 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
         />
       </div>
 
-      {/* Description */}
-      <div>
-        <Label htmlFor='description'>Deskripsi</Label>
-        <Textarea
-          id='description'
-          value={values.description}
-          onChange={(e) => onChange('description', e.target.value)}
-          rows={4}
-        />
-      </div>
-
       {/* Price */}
-      <div>
+      <div id='formControl'>
+        <Label className='mb-3' htmlFor='price'>
+          Harga
+        </Label>
         <Input
           id='price'
           type='number'
@@ -43,11 +37,25 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
         />
       </div>
 
+      {/* Description */}
+      <div id='formControl'>
+        <Label className='mb-3' htmlFor='description'>
+          Deskripsi
+        </Label>
+        <Textarea
+          id='description'
+          value={values.description}
+          onChange={(e) => onChange('description', e.target.value)}
+          rows={4}
+        />
+      </div>
+
       {/* Links */}
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-        <div>
-          <Label htmlFor='shopee'>Shopee</Label>
+      <div className='space-y-4'>
+        <Label className='mb-3'>Tautan Produk</Label>
+        <div id='formControl'>
           <Input
+            placeholder='Shopee'
             id='shopee'
             type='url'
             value={values.links?.SHOPEE || ''}
@@ -56,9 +64,9 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
             }
           />
         </div>
-        <div>
-          <Label htmlFor='tokopedia'>Tokopedia</Label>
+        <div id='formControl'>
           <Input
+            placeholder='Tokopedia'
             id='tokopedia'
             type='url'
             value={values.links?.TOKOPEDIA || ''}
@@ -67,9 +75,9 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
             }
           />
         </div>
-        <div>
-          <Label htmlFor='whatsapp'>WhatsApp</Label>
+        <div id='formControl'>
           <Input
+            placeholder='WhatsApp'
             id='whatsapp'
             type='url'
             value={values.links?.WHATSAPP || ''}
@@ -81,8 +89,8 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
       </div>
 
       {/* Images */}
-      <div>
-        <Label>Gambar Produk</Label>
+      {/* <div id='formControl'> */}
+        {/* <Label className='mb-2'>Gambar Produk</Label> */}
         <ImageUploadMultiple
           initialImages={values.existingImages}
           onChange={(existing, uploaded, deleted) => {
@@ -91,7 +99,7 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
             onChange('deletedImages', deleted);
           }}
         />
-      </div>
+      {/* </div> */}
     </div>
   );
 }

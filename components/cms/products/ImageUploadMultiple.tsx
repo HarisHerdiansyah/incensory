@@ -1,7 +1,13 @@
+// TODO: KALO OBJECT GAK JADI ADD ATAU UPDATE, ITEM YANG UDAH UPLOAD DI DELETE LAGI
+
 'use client';
 
 import { useState } from 'react';
 import { uploadToS3 } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Trash } from 'lucide-react';
 
 interface Props {
   initialImages?: string[];
@@ -45,32 +51,47 @@ export function ImageUploadMultiple({ initialImages = [], onChange }: Props) {
   };
 
   return (
-    <div className='space-y-2'>
-      <input
-        type='file'
-        multiple
-        accept='image/*'
-        onChange={handleUpload}
-        disabled={uploading}
-      />
-      <div className='grid grid-cols-3 gap-2 mt-2'>
-        {currentImages.map((key) => (
-          <div key={key} className='relative'>
-            <img
-              src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${key}`}
-              className='rounded-lg object-cover h-24 w-full'
-              alt=''
-            />
-            <button
-              type='button'
-              onClick={() => handleDelete(key)}
-              className='absolute top-1 right-1 text-xs bg-red-600 text-white px-1 rounded'
-            >
-              ✕
-            </button>
-          </div>
-        ))}
+    <>
+      <div id='formControl'>
+        <Label className='mb-2'>Gambar Produk</Label>
+        <Input
+          type='file'
+          multiple
+          accept='image/*'
+          onChange={handleUpload}
+          disabled={uploading}
+        />
       </div>
-    </div>
+      <div className=''>
+        <Label className='mb-2'>Preview Produk</Label>
+        <div className='w-full h-52 flex items-center justify-center overflow-x-scroll space-x-2'>
+          {currentImages.length === 0 ? (
+            <span className='text-gray-400'>
+              -- preview gambar produk di sini --
+            </span>
+          ) : (
+            currentImages.map((key, idx) => (
+              <div className='relative h-full border'>
+                <img
+                  key={idx}
+                  src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${key}`}
+                  alt={`Preview ${idx + 1}`}
+                  className='h-full'
+                />
+                <Button
+                  type='button'
+                  onClick={() => handleDelete(key)}
+                  className='absolute top-1 right-1'
+                  variant='destructive'
+                  size='icon'
+                >
+                  <Trash />
+                </Button>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </>
   );
 }

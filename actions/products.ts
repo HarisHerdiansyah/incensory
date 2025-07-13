@@ -136,7 +136,7 @@ export async function getProductById(id: string) {
   }
 }
 
-export async function deleteProduct(id: string) {
+export async function archiveProduct(id: string, isVisible: boolean) {
   try {
     await db.$transaction(async (tx) => {
       const images = await tx.productImage.findMany({
@@ -152,13 +152,13 @@ export async function deleteProduct(id: string) {
 
       await tx.product.update({
         where: { id },
-        data: { isVisible: false },
+        data: { isVisible },
       });
     });
     revalidatePath('/cms/products');
-    return { success: true, message: 'Produk behasil dihapus' };
+    return { success: true, message: 'Produk behasil diarsipkan' };
   } catch (error) {
     console.log('[DELETE_PRODUCT]', error);
-    return { success: false, message: 'Produk gagal dihapus' };
+    return { success: false, message: 'Produk gagal diarsipkan' };
   }
 }

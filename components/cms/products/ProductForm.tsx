@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import ProductFormFields from './ProductFormFields';
 import { ProductFormState, ProductFormProps } from './types';
 import { createProduct, updateProduct } from '@/actions/products';
+import { Button } from '@/components/ui/button';
+import Loader from '@/components/Loader';
 
 const initialFormState: ProductFormState = {
   name: '',
@@ -72,7 +74,7 @@ export default function ProductForm({
 
         if (result?.success) {
           toast.success(result.message || 'Berhasil!');
-          router.push('/cms/products');
+          router.back();
         } else {
           toast.error(result?.message || 'Gagal memproses produk');
         }
@@ -84,18 +86,28 @@ export default function ProductForm({
   };
 
   return (
-    <div className='space-y-6'>
-      <ProductFormFields values={formState} onChange={handleChange} />
-      <div className='flex justify-end'>
-        <button
-          type='button'
-          onClick={handleSubmit}
-          disabled={isPending}
-          className='bg-primary text-white px-4 py-2 rounded-lg disabled:opacity-50 cursor-pointer'
-        >
-          {mode === 'add' ? 'Tambah Produk' : 'Simpan Perubahan'}
-        </button>
+    <>
+      {isPending && <Loader />}
+      <div className='space-y-6'>
+        <ProductFormFields values={formState} onChange={handleChange} />
+        <div className='flex justify-between'>
+          <Button
+            variant='outline'
+            className='cursor-pointer'
+            onClick={() => router.back()}
+          >
+            Kembali
+          </Button>
+          <Button
+            variant='secondary'
+            className='cursor-pointer'
+            onClick={handleSubmit}
+            disabled={isPending}
+          >
+            {mode === 'add' ? 'Tambah Produk' : 'Simpan Perubahan'}
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

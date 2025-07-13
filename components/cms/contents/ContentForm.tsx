@@ -99,7 +99,7 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
 
       <form ref={formRef} onSubmit={handleSubmit} className='space-y-6 mt-6'>
         <ContentFormFields defaultValues={initialData} />
-        <Button type='submit'>
+        <Button variant='outline' type='submit'>
           {mode === 'add' ? 'Tambah Konten' : 'Simpan Perubahan'}
         </Button>
       </form>

@@ -12,6 +12,7 @@ export default async function Products() {
       id: true,
       name: true,
       price: true,
+      isVisible: true,
     },
   });
   const products = q.map((data) => ({
