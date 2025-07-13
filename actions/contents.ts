@@ -40,7 +40,7 @@ export async function insertContent(formData: FormData) {
 
 // UPDATE
 export async function updateContent(id: string, formData: FormData) {
-  const raw = formData.get('updatedContent') as string;
+  const raw = formData.get('updatedContent');
   const updatedContent = parseJsonSafe<any>(raw);
 
   console.log(updatedContent);
