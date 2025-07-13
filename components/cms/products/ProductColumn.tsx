@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import clsx from 'clsx';
 import { ColumnDef } from '@tanstack/react-table';
 import { archiveProduct } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import { ProductResponse } from './types';
-import clsx from 'clsx';
 
 const columns: ColumnDef<ProductResponse>[] = [
   {

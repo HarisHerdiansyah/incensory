@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import clsx from 'clsx';
 import { ColumnDef } from '@tanstack/react-table';
-import { deleteContent } from '@/actions/contents';
+import { archiveContent } from '@/actions/contents';
 import { Button } from '@/components/ui/button';
 import { VRCategory } from '@prisma/client';
 
@@ -11,6 +12,7 @@ export type Content = {
   id: string;
   title: string;
   category: VRCategory;
+  isVisible: boolean;
 };
 
 const columns: ColumnDef<Content>[] = [
@@ -23,12 +25,20 @@ const columns: ColumnDef<Content>[] = [
     header: 'Kategori',
   },
   {
+    accessorKey: 'isVisible',
+    header: 'Tampilan',
+    cell: ({ row }) => {
+      const content = row.original;
+      return content.isVisible ? 'Publik' : 'Diarsipkan';
+    },
+  },
+  {
     header: 'Aksi',
     cell: ({ row }) => {
       const content = row.original;
 
-      const handleDelete = async () => {
-        const response = await deleteContent(content.id);
+      const handleArchive = async () => {
+        const response = await archiveContent(content.id, !content.isVisible);
         if (response.success) {
           toast.success(response.message);
         } else {
@@ -47,11 +57,14 @@ const columns: ColumnDef<Content>[] = [
             </Button>
           </Link>
           <Button
-            onClick={handleDelete}
-            className='bg-red-600 hover:bg-red-700 cursor-pointer'
+            className={clsx('cursor-pointer', {
+              'bg-red-600 hover:bg-red-700': content.isVisible,
+              'bg-accent': !content.isVisible,
+            })}
             size='sm'
+            onClick={handleArchive}
           >
-            Hapus
+            {content.isVisible ? 'Arsipkan' : 'Tampilkan'}
           </Button>
         </div>
       );

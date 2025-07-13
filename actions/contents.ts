@@ -48,7 +48,6 @@ export async function updateContent(id: string, formData: FormData) {
     return { success: false, message: 'Data tidak valid.' };
   }
 
-
   try {
     if ('source' in updatedContent) {
       const previous = await db.vRContent.findUnique({
@@ -78,7 +77,7 @@ export async function updateContent(id: string, formData: FormData) {
 }
 
 // DELETE
-export async function deleteContent(id: string) {
+export async function archiveContent(id: string, isVisible: boolean) {
   try {
     const data = await db.vRContent.findUnique({
       where: { id },
@@ -89,15 +88,16 @@ export async function deleteContent(id: string) {
       await deleteFilesFromS3([data.source]);
     }
 
-    await db.vRContent.delete({
+    await db.vRContent.update({
       where: { id },
+      data: { isVisible },
     });
 
     revalidatePath(CMS_PATH);
-    return { success: true, message: 'Konten berhasil dihapus.' };
+    return { success: true, message: 'Konten berhasil diarsipkan.' };
   } catch (error) {
     console.error('[DELETE_CONTENT]', error);
-    return { success: false, message: 'Gagal menghapus konten.' };
+    return { success: false, message: 'Gagal mengarsipkan konten.' };
   }
 }
 
