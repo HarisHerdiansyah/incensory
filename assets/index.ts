@@ -1,1 +1,9 @@
+export { default as AcroIllust } from './acro-illlust.jpg';
+export { default as NyctoIllust } from './nycto-illust.jpg';
+export { default as ClaustroIllust } from './claustro-illust.jpg';
+export { default as ShopeeLogo } from './shopee-logo.png';
+export { default as TokopediaLogo } from './tokopedia-logo.png';
+export { default as WhatsappLogo } from './whatsapp-logo.png';
+export { default as WordingSquare } from './wording_sq.jpg';
 export { default as Wording } from './wording.png';
+export { default as PhobiaOverview } from './phobia-overview.jpg';
