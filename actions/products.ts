@@ -150,8 +150,9 @@ export async function deleteProduct(id: string) {
         await deleteFilesFromS3(deletedImages);
       }
 
-      await tx.product.delete({
+      await tx.product.update({
         where: { id },
+        data: { isVisible: false },
       });
     });
     revalidatePath('/cms/products');

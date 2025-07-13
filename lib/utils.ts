@@ -73,3 +73,17 @@ export function toRupiah(price: number) {
     currency: 'IDR',
   }).format(price);
 }
+
+export function diffing(
+  initial: Record<string, any>,
+  updated: Record<string, any>
+) {
+  const keys = Object.keys(initial);
+  const result = {} as Record<string, any>;
+  keys.forEach((key) => {
+    if (initial[key] !== updated[key]) {
+      result[key] = updated[key];
+    }
+  });
+  return result;
+}
