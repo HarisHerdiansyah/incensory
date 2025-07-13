@@ -1,9 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import {
-  S3Client,
-  DeleteObjectsCommand,
-} from '@aws-sdk/client-s3';
+import { S3Client, DeleteObjectsCommand } from '@aws-sdk/client-s3';
 
 export const s3Client = new S3Client({
   region: 'auto',
@@ -68,4 +65,11 @@ export function parseJsonSafe<T>(value: FormDataEntryValue | null): T | null {
   } catch {
     return null;
   }
+}
+
+export function toRupiah(price: number) {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+  }).format(price);
 }

@@ -70,7 +70,6 @@ export async function updateProduct(formData: FormData) {
     parseJsonSafe<{ [K in LinkTarget]?: string }>(updatedLinksRaw) || {};
   const uploadedImages = parseJsonSafe<string[]>(uploadedImagesRaw) || [];
   const deletedImages = parseJsonSafe<string[]>(deletedImagesRaw) || [];
-  console.log(updatedProduct);
 
   try {
     await db.$transaction(async (tx) => {
@@ -134,5 +133,31 @@ export async function getProductById(id: string) {
   } catch (err) {
     console.error('[GET_PRODUCT]', err);
     return null;
+  }
+}
+
+export async function deleteProduct(id: string) {
+  try {
+    await db.$transaction(async (tx) => {
+      const images = await tx.productImage.findMany({
+        where: { product_id: id },
+        select: { source: true },
+      });
+
+      const deletedImages = images.map((img) => img.source);
+
+      if (deletedImages.length > 0) {
+        await deleteFilesFromS3(deletedImages);
+      }
+
+      await tx.product.delete({
+        where: { id },
+      });
+    });
+    revalidatePath('/cms/products');
+    return { success: true, message: 'Produk behasil dihapus' };
+  } catch (error) {
+    console.log('[DELETE_PRODUCT]', error);
+    return { success: false, message: 'Produk gagal dihapus' };
   }
 }

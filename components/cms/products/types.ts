@@ -8,7 +8,7 @@ export type ProductFormState = {
   existingImages: string[];
   uploadedImages: string[];
   deletedImages: string[];
-}
+};
 
 export type ProductProps = {
   values: ProductFormState;
@@ -16,7 +16,7 @@ export type ProductProps = {
     field: K,
     value: ProductFormState[K]
   ) => void;
-}
+};
 
 export type ProductFormMode = 'add' | 'edit';
 
@@ -25,3 +25,9 @@ export interface ProductFormProps {
   defaultValues?: ProductFormState;
   productId?: string;
 }
+
+export type ProductResponse = {
+  id: string;
+  name: string;
+  price: number | string;
+};
