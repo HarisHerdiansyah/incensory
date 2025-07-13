@@ -1,0 +1,123 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// Enums
+enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+enum VRCategory {
+  ACROPHOBIA
+  CLAUSTROPHOBIA
+  NYCTOPHOBIA
+}
+
+enum LinkTarget {
+  SHOPEE
+  TOKOPEDIA
+  WHATSAPP
+}
+
+// Models
+model User {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  email         String   @unique
+  password      String
+  phone_number  String   @unique @default("")
+  role          UserRole @default(CUSTOMER)
+  verification  Boolean  @default(false)
+  profile_image String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  access_codes AccessCode[]
+  rating       UserRatings[]
+
+  @@map("users")
+}
+
+model AccessCode {
+  id         String   @id @default(uuid())
+  code       String   @unique
+  is_used    Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id    String
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("access_code")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       Decimal
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  product_links  ProductLink[]
+  product_images ProductImage[]
+
+  @@map("products")
+}
+
+model ProductLink {
+  id         String     @id @default(uuid())
+  link       String
+  target     LinkTarget
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  product_id String
+
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@map("product_links")
+}
+
+model ProductImage {
+  id         String   @id @default(uuid())
+  source     String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  product_id String
+
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+model VRContent {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  source      String
+  category    VRCategory
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  @@map("vr_contents")
+}
+
+model UserRatings {
+  id         String   @id @default(uuid())
+  rating     Int
+  message    String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user_id    String
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("user_ratings")
+}
