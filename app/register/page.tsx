@@ -3,7 +3,7 @@ import { RegisterForm } from '@/components/auth';
 export default function Register() {
   return (
     <main
-      id='register'
+      id='auth'
       className='min-h-screen flex items-center justify-center'
     >
       <RegisterForm />

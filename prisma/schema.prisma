@@ -32,7 +32,7 @@ model User {
   username      String   @unique
   email         String   @unique
   password      String
-  phone_number  String   @unique @default("")
+  phone_number  String   @default("")
   role          UserRole @default(CUSTOMER)
   verification  Boolean  @default(false)
   profile_image String?

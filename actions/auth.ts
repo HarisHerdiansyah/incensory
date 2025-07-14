@@ -6,7 +6,7 @@ import nodemailer from 'nodemailer';
 import { db } from '@/lib/db';
 import { emailHtmlContent } from '@/lib/utils';
 
-type RegisterState = { success: boolean | null; message: string };
+type AuthFormState = { success: boolean | null; message: string };
 
 const mailTransporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
@@ -54,9 +54,9 @@ export async function sendEmailVerification(payload: {
 }
 
 export async function registerUser(
-  prevState: RegisterState,
+  prevState: AuthFormState,
   formData: FormData
-): Promise<RegisterState> {
+): Promise<AuthFormState> {
   const fields = [
     'username',
     'email',
@@ -120,5 +120,98 @@ export async function registerUser(
   } catch (error) {
     console.error('Error creating user:', error);
     return { success: false, message: 'Gagal mendaftarkan akun. Coba lagi.' };
+  }
+}
+
+export async function resetCredentials(
+  prevState: AuthFormState,
+  formData: FormData
+): Promise<AuthFormState> {
+  const fields = ['email', 'password', 'confirmPassword'] as const;
+  const values = Object.fromEntries(
+    fields.map((f) => [f, formData.get(f) as string])
+  );
+
+  if (Object.values(values).some((v) => !v)) {
+    return { success: false, message: 'Semua field harus diisi.' };
+  }
+
+  if (values.password !== values.confirmPassword) {
+    return { success: false, message: 'Kata sandi tidak cocok.' };
+  }
+
+  const isUserExist = await db.user.findUnique({
+    where: { email: values.email },
+  });
+
+  if (!isUserExist) {
+    return { success: false, message: 'Akun tidak ditemukan.' };
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(values.password, 10);
+    await db.user.update({
+      where: { id: isUserExist.id },
+      data: { password: hashedPassword },
+    });
+    return {
+      success: true,
+      message: 'Berhasil mengubah kata sandi. Silahkan kembali masuk.',
+    };
+  } catch (error) {
+    console.error('Error reset credentials:', error);
+    return { success: false, message: 'Gagal mengubah kata sandi. Coba lagi.' };
+  }
+}
+
+export async function singleVerification(
+  prevState: AuthFormState,
+  formData: FormData
+): Promise<AuthFormState> {
+  const fields = ['email', 'password', 'accessCode'] as const;
+  const values = Object.fromEntries(
+    fields.map((f) => [f, formData.get(f) as string])
+  );
+
+  if (Object.values(values).some((v) => !v)) {
+    return { success: false, message: 'Semua field harus diisi.' };
+  }
+
+  const isUserExist = await db.user.findUnique({
+    where: { email: values.email },
+  });
+
+  if (!isUserExist) {
+    return { success: false, message: 'Akun tidak ditemukan.' };
+  }
+
+  const isPasswordValid = await bcrypt.compare(
+    values.password,
+    isUserExist.password
+  );
+
+  if (!isPasswordValid) {
+    return { success: false, message: 'Kata sandi salah.' };
+  }
+
+  const isCodeExist = await db.accessCode.findUnique({
+    where: { code: values.accessCode },
+  });
+
+  if (!isCodeExist) {
+    return { success: false, message: 'Kode unik produk salah.' };
+  }
+
+  try {
+    await sendEmailVerification({
+      userId: isUserExist.id,
+      username: isUserExist.username,
+      email: isUserExist.email,
+      code: isCodeExist.code,
+    });
+    return { success: true, message: 'Cek email untuk verifikasi akun.' };
+  } catch (error) {
+    console.error('Single verification error:', error);
+    return { success: false, message: 'Gagal memverifikasi. Coba lagi nanti.' };
   }
 }

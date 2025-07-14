@@ -151,8 +151,7 @@
   background: linear-gradient(45deg, #12b2c1, #0d8a9e, #23717b);
 }
 
-#login,
-#register {
+#auth {
   background: linear-gradient(45deg, #e5f9f8, #12b2c1);
 }
 

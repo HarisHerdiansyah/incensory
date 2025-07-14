@@ -54,7 +54,7 @@ export default function LoginForm() {
       <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className='pt-12 px-8 pb-12 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
+        className='pt-12 px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
       >
         <div className='flex justify-center items-center'>
           <Image src={Wording} alt='Incensory' width={220} height={120} />
@@ -73,15 +73,26 @@ export default function LoginForm() {
             />
           </div>
         ))}
-        <div className='flex justify-center gap-1.5'>
-          <p>Sudah punya akun? </p>
+        <div className='flex justify-between gap-1.5'>
           <Link
             href='/register'
             className='text-secondary hover:underline cursor-pointer text-center block'
           >
-            Masuk di sini
+            Daftar di sini
+          </Link>
+          <Link
+            href='/forgot-password'
+            className='text-red-600 hover:underline cursor-pointer text-center block'
+          >
+            Lupa kata sandi
           </Link>
         </div>
+        <Link
+          href='/verification'
+          className='text-secondary hover:underline cursor-pointer text-center block'
+        >
+          Saya belum verifikasi akun
+        </Link>
         <Button variant='secondary' className='w-full cursor-pointer'>
           Masuk
         </Button>
