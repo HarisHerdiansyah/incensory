@@ -4,30 +4,6 @@ import { db } from '@/lib/db';
 import { AcroIllust, ClaustroIllust, NyctoIllust } from '@/assets';
 import { VRCategory } from '@prisma/client';
 
-const gallery = [
-  {
-    id: 1,
-    title: 'Akrofobia',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, commodi.',
-    image: AcroIllust,
-  },
-  {
-    id: 2,
-    title: 'Klaustrofobia',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, commodi.',
-    image: ClaustroIllust,
-  },
-  {
-    id: 3,
-    title: 'Nyctophobia',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, commodi.',
-    image: NyctoIllust,
-  },
-];
-
 const thumbnail = {
   [VRCategory.ACROPHOBIA]: AcroIllust,
   [VRCategory.CLAUSTROPHOBIA]: ClaustroIllust,

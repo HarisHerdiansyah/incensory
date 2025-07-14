@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Button } from '../ui/button';
 import { RectangleGoggles, Info } from 'lucide-react';
 import {
@@ -16,7 +16,7 @@ type GalleryType = {
   title: string;
   category: string;
   description: string;
-  image: any;
+  image: StaticImageData;
   source: string;
 };
 

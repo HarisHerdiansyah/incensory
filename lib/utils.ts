@@ -1,9 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { S3Client, DeleteObjectsCommand } from '@aws-sdk/client-s3';
-import nodemailer from 'nodemailer';
-import jwt from 'jsonwebtoken';
-
 export const s3Client = new S3Client({
   region: 'auto',
   endpoint: process.env.S3_ENDPOINT as string,
@@ -77,11 +74,11 @@ export function toRupiah(price: number) {
 }
 
 export function diffing(
-  initial: Record<string, any>,
-  updated: Record<string, any>
+  initial: Record<string, unknown>,
+  updated: Record<string, unknown>
 ) {
   const keys = Object.keys(initial);
-  const result = {} as Record<string, any>;
+  const result = {} as Record<string, unknown>;
   keys.forEach((key) => {
     if (initial[key] !== updated[key]) {
       result[key] = updated[key];

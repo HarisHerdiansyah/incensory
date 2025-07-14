@@ -3,6 +3,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { uploadToS3 } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -71,12 +72,13 @@ export function ImageUploadMultiple({ initialImages = [], onChange }: Props) {
             </span>
           ) : (
             currentImages.map((key, idx) => (
-              <div className='relative h-full border'>
-                <img
-                  key={idx}
+              <div className='relative h-full border' key={key}>
+                <Image
                   src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${key}`}
                   alt={`Preview ${idx + 1}`}
                   className='h-full'
+                  width={180}
+                  height={180}
                 />
                 <Button
                   type='button'
