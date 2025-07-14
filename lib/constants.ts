@@ -40,7 +40,7 @@ export const registerForm = [
 export const loginForm = [registerForm[0][1], registerForm[1][0]];
 
 export const routes = {
-  public: ['/', '/login', '/register', '/reset-password'],
+  public: ['/', '/login', '/register', '/reset-password', '/verify'],
   customer: ['/home', '/profile'],
   admin: ['/cms'],
 };

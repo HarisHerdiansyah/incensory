@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { getSession, signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import { useState, useRef } from 'react';
 import { Wording } from '@/assets';
@@ -13,6 +14,7 @@ import { loginForm } from '@/lib/constants';
 import Loader from '../Loader';
 
 export default function LoginForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -33,6 +35,13 @@ export default function LoginForm() {
     if (!response?.ok) {
       toast.error(`Gagal masuk. ${response?.error}`);
       return;
+    }
+
+    const session = await getSession();
+    if (session?.user.role === 'ADMIN') {
+      router.push('/cms/dashboard');
+    } else {
+      router.push('/home');
     }
 
     toast.success('Berhasil masuk!');
