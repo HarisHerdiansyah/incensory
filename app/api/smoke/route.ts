@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(req: Request) {
+export async function GET() {
   console.log('✅ SMTP ENV CHECK');
   console.log('SMTP_HOST:', process.env.SMTP_HOST);
   console.log('SMTP_USER:', process.env.SMTP_USER);
