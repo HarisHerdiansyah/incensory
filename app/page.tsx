@@ -1,250 +1,362 @@
-import Image from 'next/image';
+import React from 'react';
 import {
-  Brain,
-  ChevronRight,
-  ShieldCheck,
-  Zap,
-  Star,
-  Users,
-  TrendingUp,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Clock,
+  Instagram,
+  Youtube,
 } from 'lucide-react';
-import {
-  AcroIllust,
-  NyctoIllust,
-  ClaustroIllust,
-  WordingSquare,
-  PhobiaOverview,
-} from '@/assets';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { TeamPhoto } from '@/assets';
+import {
+  contentLists,
+  service,
+  navigation,
+  teams,
+  contactDetails,
+  faqs,
+} from '@/lib/constants';
+import ContactForm from '@/components/ContactForm';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import LandingNavbar from '@/components/LandingNavbar';
 
-export default function Index() {
+export default function page() {
   return (
     <>
-      <section id='hero' className='bg-muted h-screen flex items-center'>
-        <div className='py-8 px-16 grid grid-cols-1 lg:grid-cols-2 items-center gap-x-8 gap-y-12'>
-          <div className='flex flex-col items-center space-y-4'>
-            <Image
-              src={WordingSquare}
-              alt='Incensory Logo'
-              width={400}
-              height={400}
-              className='rounded-full'
-            />
-          </div>
-          <article>
-            <h1 className='text-3xl font-semibold'>
-              Virtual Exposure Therapy for Specific Phobias
-            </h1>
-            <p className='text-xl my-6'>
-              Overcome your fears in a safe, controlled virtual environment with
-              our evidence-based therapeutic approach.
-            </p>
-            <Button size='lg' className='cursor-pointer'>
-              Get Started
-              <ChevronRight />
+      <LandingNavbar />
+
+      <div className='bg-muted w-full min-h-screen grid lg:grid-cols-2 p-8 sm:p-12 md:p-16 gap-4 md:gap-8 items-center justify-items-center'>
+        <div className='bg-white w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center'>
+          [LOGO INCENSORY]
+        </div>
+        <article className='justify-self-start space-y-3'>
+          <p className='text-2xl md:text-4xl font-semibold'>Incensory</p>
+          <p className='text-lg md:text-xl text-secondary'>
+            Multisensori terapi dengan bantuan Virtual Reality untuk fobia
+            spesifik
+          </p>
+          <div className='flex items-center gap-x-2'>
+            <Link href='/register'>
+              <Button className='cursor-pointer' variant='secondary'>
+                Mulai
+              </Button>
+            </Link>
+            <Button className='cursor-pointer text-secondary' variant='link'>
+              Pelajari Lebih Lanjut
             </Button>
-          </article>
-        </div>
-      </section>
-      <section id='overview' className='py-24 px-16'>
-        <div className='grid grid-cols-2 items-center'>
-          <div className='flex flex-col items-center space-y-4'>
-            <Image
-              src={PhobiaOverview}
-              alt='Phobia Overview'
-              width={400}
-              height={400}
-              className='shadow-2xl rounded-xl'
-            />
           </div>
-          <article>
-            <Badge variant='secondary'>What is Phobia?</Badge>
-            <h1 className='text-4xl font-semibold mt-3 mb-8'>
-              Understanding Specific Phobias
-            </h1>
-            <p className='text-secondary text-2xl'>
-              A specific phobia is an intense, irrational fear of a specific
-              object or situation that leads to avoidance behavior.
-            </p>
-            <p className='mt-6 text-lg'>
-              Common examples include fear of heights (acrophobia), fear of
-              enclosed spaces (claustrophobia), and fear of darkness
-              (nyctophobia).
-            </p>
-          </article>
-        </div>
-      </section>
-      <section id='vret' className='bg-muted'>
-        <div className='py-24 px-16'>
-          <article className='text-center'>
-            <Badge variant='secondary'>Our Approach</Badge>
-            <h1 className='text-4xl font-semibold mt-3 mb-8'>
-              How Virtual Exposure Therapy Works
-            </h1>
-            <p className='text-secondary text-2xl'>
-              A gradual, controlled approach to facing your fears in a virtual
-              environment.
-            </p>
-          </article>
-          <div className='grid grid-cols-3 mt-8 gap-8'>
-            <div className='bg-white rounded-xl p-6 text-center'>
-              <ShieldCheck className='text-secondary mx-auto' size={48} />
-              <h4 className='mt-10 text-2xl font-semibold'>Safe Environment</h4>
-              <p className='mt-2 text-lg'>
-                Experience your fears in a completely controlled and safe
-                virtual setting.
-              </p>
-            </div>
-            <div className='bg-white rounded-xl p-6 text-center'>
-              <Brain className='text-secondary mx-auto' size={48} />
-              <h4 className='mt-10 text-2xl font-semibold'>Guided Therapy</h4>
-              <p className='mt-2 text-lg'>
-                Professional therapists guide you through each step of the
-                exposure process.
-              </p>
-            </div>
-            <div className='bg-white rounded-xl p-6 text-center'>
-              <Zap className='text-secondary mx-auto' size={48} />
-              <h4 className='mt-10 text-2xl font-semibold'>Lasting Results</h4>
-              <p className='mt-2 text-lg'>
-                Build confidence and resilience that transfers to real-world
-                situations.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id='treatment' className='py-24 px-16'>
-        <article className='text-center'>
-          <Badge variant='secondary'>Virtual Environment</Badge>
-          <h1 className='text-4xl font-semibold mt-3 mb-8'>
-            Three Fears, Three Worlds
-          </h1>
-          <p className='text-secondary text-2xl'>
-            Three different environment — one journey to confront them all.
+        </article>
+      </div>
+
+      <section
+        id='about'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
+      >
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>
+            Apa itu Incensory?
+          </p>
+          <p className='md:text-lg'>
+            <strong>Incensory</strong> adalah inovasi terapi multisensori
+            pertama di Indonesia yang dirancang untuk membantu mengatasi fobia
+            spesifik seperti fobia <strong>ketinggian</strong> (akrofobia),{' '}
+            <strong>ruang sempit</strong> (klaustrofobia), dan{' '}
+            <strong>gelap</strong> (niktofobia). Dengan menggabungkan teknologi{' '}
+            <strong>Virtual Reality (VR)</strong> dan aromaterapi berbasis{' '}
+            <strong>kemenyan</strong>, Incensory menawarkan pendekatan terapi
+            modern yang ilmiah, imersif, dan aman.
           </p>
         </article>
-        <div className='my-10 grid grid-cols-3 justify-items-center'>
-          <div>
-            <Image src={AcroIllust} alt='Acrophobia' width={360} height={200} />
-            <p className='mt-2 text-2xl font-semibold'>Acrophobia</p>
-          </div>
-          <div>
-            <Image
-              src={ClaustroIllust}
-              alt='Claustrophobia'
-              width={360}
-              height={200}
-            />
-            <p className='mt-2 text-2xl font-semibold'>Claustrophobia</p>
-          </div>
-          <div>
-            <Image
-              src={NyctoIllust}
-              alt='Nyctophobia'
-              width={360}
-              height={200}
-            />
-            <p className='mt-2 text-2xl font-semibold'>Nyctophobia</p>
-          </div>
+        <div className='my-12 flex justify-center items-center gap-8 flex-wrap'>
+          {contentLists.map((content) => (
+            <div className='rounded-lg p-2' key={content.title}>
+              <Image
+                className='rounded-lg'
+                src={content.image}
+                alt={content.title}
+                width={300}
+                height={300}
+              />
+              <p className='text-center italic'>{content.title}</p>
+            </div>
+          ))}
         </div>
       </section>
-      <section id='testimony' className='bg-muted'>
-        <div className='py-24 px-16 grid grid-cols-2 items-center gap-8'>
-          <article>
-            <Badge variant='secondary'>Testimonials</Badge>
-            <h1 className='text-4xl font-semibold mt-3 mb-8'>
-              Real People, Real Results
-            </h1>
-            <p className='text-secondary text-2xl'>
-              Discover how our innovative virtual exposure therapy combined with
-              custom perfume formulations has helped people overcome their
-              deepest fears.
-            </p>
-          </article>
-          <div className='grid grid-rows-3 space-y-6'>
-            <div className='row-span-2 bg-white rounded-xl p-6 h-min'>
-              <article>
-                <p className='italic mb-6'>
-                  Before VR therapy, even standing near a window on a high floor
-                  made me anxious. After several sessions, my fear of heights
-                  has improved dramatically. The virtual environments felt real
-                  but safe, helping me build confidence step by step. I finally
-                  enjoy high places again!
-                </p>
-              </article>
-              <div className='flex justify-between items-center'>
-                <aside className='flex items-center gap-4'>
-                  <Avatar className='w-12 h-12'>
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className='font-semibold'>John Doe</p>
-                    <p className='text-secondary'>Acrophobia Survivor</p>
-                  </div>
-                </aside>
-                <aside className='flex items-center gap-1'>
-                  <div>
-                    {Array.from({ length: 4 }, (_, index) => (
-                      <Star
-                        key={index}
-                        className='text-secondary inline-block fill-secondary'
-                        size={24}
-                      />
-                    ))}
-                    <Star className='text-secondary inline-block' size={24} />
-                  </div>
-                  <p className='font-semibold text-xl'>4/5</p>
-                </aside>
-              </div>
-            </div>
-            <div className='grid grid-cols-3 gap-6'>
-              <div className='bg-white p-6 rounded-xl'>
-                <div className='flex justify-center items-center gap-2'>
-                  <Star className='text-secondary' size={28} />
-                  <p className='font-bold text-2xl'>4.9</p>
-                </div>
-                <p className='text-center mt-3'>Average Rating</p>
-              </div>
-              <div className='bg-white p-6 rounded-xl'>
-                <div className='flex justify-center items-center gap-2'>
-                  <Users className='text-secondary' size={28} />
-                  <p className='font-bold text-2xl'>78+</p>
-                </div>
-                <p className='text-center mt-3'>Clients</p>
-              </div>
-              <div className='bg-white p-6 rounded-xl'>
-                <div className='flex justify-center items-center gap-2'>
-                  <TrendingUp className='text-secondary' size={28} />
-                  <p className='font-bold text-2xl'>94%</p>
-                </div>
-                <p className='text-center mt-3'>Success Rate</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id='cta' className='py-24 px-16'>
-        <article className='text-center'>
-          <Badge variant='secondary'>Join With Us!</Badge>
-          <h1 className='text-4xl font-semibold mt-3 mb-8'>
-            Ready to overcome your phobia?
-          </h1>
-          <p className='text-secondary text-2xl'>
-            Take the first step toward freedom from fear.
+
+      <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'>
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>
+            Apa yang Kami Tawarkan?
           </p>
         </article>
-        <div className='flex justify-center my-10'>
-          <Button size='lg'>Schedule Consultation</Button>
+        <div className='my-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
+          {service.map((item) => (
+            <div className='bg-white rounded-lg p-4 space-y-4' key={item.title}>
+              <p className='text-lg font-semibold flex items-center gap-x-2'>
+                <item.icon /> {item.title}
+              </p>
+              <p>{item.description}</p>
+            </div>
+          ))}
         </div>
       </section>
-      <footer className='bg-muted py-6 text-center'>
-        <p>
-          @ 2025 <span className='font-brand'>Incensory</span>, All Rights
-          Reserved
+
+      <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-items-center gap-8'>
+          <article className='space-y-3 text-center lg:text-right'>
+            <p className='text-2xl md:text-4xl font-semibold italic'>
+              Feel it. Face it. Heal it.
+            </p>
+            <p className='text-lg md:text-xl text-secondary'>
+              Incensory hadir sebagai solusi nyata untuk membantu Anda
+              menghadapi ketakutan dengan cara yang ilmiah dan manusiawi.
+            </p>
+          </article>
+          <div className='bg-muted w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center'>
+            [ILLUSTRASI DI SINI]
+          </div>
+        </div>
+      </section>
+
+      {/* <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'>
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>Apa Kata Mereka?</p>
+        </article>
+        <div className='my-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
+          <div className='rounded-lg bg-white p-4 space-y-6'>
+            <p className='italic'>
+              "Incensory telah membantu saya menghadapi ketakutan saya dengan
+              cara yang tidak pernah saya bayangkan sebelumnya."
+            </p>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-x-2'>
+                <CircleUserRound size={34} />
+                <aside className='text-sm'>
+                  <p className='font-semibold'>John Doe</p>
+                  <p className='italic'>john@gmail.com</p>
+                </aside>
+              </div>
+              <div className='flex items-center gap-x-2'>
+                <Star size={24} fill='yellow' color='yellow' />
+                <p className='font-semibold'>4/5</p>
+              </div>
+            </div>
+          </div>
+          <div className='rounded-lg bg-white p-4 space-y-6'>
+            <p className='italic'>
+              "Incensory telah membantu saya menghadapi ketakutan saya dengan
+              cara yang tidak pernah saya bayangkan sebelumnya."
+            </p>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-x-2'>
+                <CircleUserRound size={34} />
+                <aside className='text-sm'>
+                  <p className='font-semibold'>John Doe</p>
+                  <p className='italic'>john@gmail.com</p>
+                </aside>
+              </div>
+              <div className='flex items-center gap-x-2'>
+                <Star size={24} fill='yellow' color='yellow' />
+                <p className='font-semibold'>4/5</p>
+              </div>
+            </div>
+          </div>
+          <div className='rounded-lg bg-white p-4 space-y-6'>
+            <p className='italic'>
+              "Incensory telah membantu saya menghadapi ketakutan saya dengan
+              cara yang tidak pernah saya bayangkan sebelumnya."
+            </p>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-x-2'>
+                <CircleUserRound size={34} />
+                <aside className='text-sm'>
+                  <p className='font-semibold'>John Doe</p>
+                  <p className='italic'>john@gmail.com</p>
+                </aside>
+              </div>
+              <div className='flex items-center gap-x-2'>
+                <Star size={24} fill='yellow' color='yellow' />
+                <p className='font-semibold'>4/5</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      <section
+        id='ourTeam'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
+      >
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>
+            Siapa di balik Incensory?
+          </p>
+          <p className='md:text-lg'>
+            Program ini dirintis oleh lima mahasiswa dari lintas bidang untuk
+            menciptakan solusi yang konklusif berdasarkan keahliannya
+            masing-masing.
+          </p>
+        </article>
+        <div className='my-12 flex justify-center items-center'>
+          <div className='rounded-lg p-2'>
+            <Image
+              className='rounded-lg'
+              src={TeamPhoto}
+              alt='Tim Incensory'
+              width={700}
+              height={700}
+            />
+            <p className='text-center italic'>
+              Tim Incensory - Universitas Padjadjaran
+            </p>
+          </div>
+        </div>
+        <div className='my-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
+          {teams.map((team) => (
+            <div className='bg-white rounded-lg text-center' key={team.name}>
+              <p className='text-lg font-semibold'>{team.name}</p>
+              <p className='text-sm italic'>
+                {team.role} - {team.major}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id='contact'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'
+      >
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>
+            Tertarik? Segera Hubungi Kami!
+          </p>
+        </article>
+        <div className='flex justify-center my-14'>
+          <ContactForm />
+        </div>
+        <p className='text-center text-xl md:text-2xl font-semibold'>
+          Atau, gunakan informasi berikut untuk menghubungi kami:
         </p>
+        <div className='my-12 grid grid-cols-1 md:grid-cols-2 gap-8'>
+          {contactDetails.map((item) => (
+            <div className='bg-white rounded-lg p-4 space-y-4' key={item.title}>
+              <p className='text-lg font-semibold flex items-center gap-x-2'>
+                <item.icon /> {item.title}
+              </p>
+              <p>{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id='faq'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
+      >
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>
+            Frequenly Asked Questions (FAQ)
+          </p>
+        </article>
+        <div className='max-w-[700px] mx-auto my-12'>
+          <Accordion type='single' className='space-y-2' collapsible>
+            {faqs.map((faq, i) => (
+              <AccordionItem value={`item-${i + 1}`} key={faq.title}>
+                <AccordionTrigger className='font-semibold text-lg bg-secondary px-3 py-2 text-secondary-foreground cursor-pointer'>
+                  {faq.title}
+                </AccordionTrigger>
+                <AccordionContent className='bg-muted px-3 py-2 text-base rounded-lg'>
+                  {faq.content}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      <footer className='bg-secondary py-4 text-secondary-foreground'>
+        <div className='max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-8 text-sm'>
+          <div>
+            <h3 className='text-xl font-semibold mb-2 '>Incensory</h3>
+            <p>Feel it. Face it. Heal it.</p>
+            <p className='mt-4 text-xs'>
+              Terapi fobia berbasis VR dan aroma relaksasi pertama di Indonesia.
+            </p>
+          </div>
+
+          <div>
+            <h4 className=' font-semibold mb-3'>Navigasi</h4>
+            <ul className='space-y-2'>
+              {navigation.map((navItem) => {
+                if (!navItem.href.startsWith('/')) {
+                  return (
+                    <li key={navItem.label}>
+                      <Link href={navItem.href} className='hover:underline '>
+                        {navItem.label}
+                      </Link>
+                    </li>
+                  );
+                }
+              })}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className=' font-semibold mb-3'>Kontak</h4>
+            <ul className='space-y-1'>
+              <li className='flex items-center gap-x-2'>
+                <MapPin size={18} /> Jatinangor, Sumedang 45363
+              </li>
+              <li className='flex items-center gap-x-2'>
+                <Phone size={18} /> 0895-3704-93300
+              </li>
+              <li className='flex items-center gap-x-2'>
+                <Mail size={18} /> incensory@incensory.id
+              </li>
+              <li className='flex items-center gap-x-2'>
+                <Clock size={18} /> Senin-Jumat, 09.00-17.00
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className=' font-semibold mb-3'>Sosial Media</h4>
+            <ul className='space-y-2'>
+              <li className='flex items-center gap-x-2'>
+                <Instagram size={18} />{' '}
+                <Link
+                  href='https://www.instagram.com/incensory.official/'
+                  className='hover:underline cursor-pointer'
+                >
+                  @incensory.official
+                </Link>
+              </li>
+              <li className='flex items-center gap-x-2'>
+                <Youtube size={18} />{' '}
+                <Link
+                  href='https://www.youtube.com/@Incensory38'
+                  className='hover:underline cursor-pointer'
+                >
+                  Incensory.official
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className='border-t border-white mt-10 pt-4 text-center text-xs'>
+          &copy; 2025 Incensory. All rights reserved.
+        </div>
       </footer>
     </>
   );
