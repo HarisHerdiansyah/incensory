@@ -7,3 +7,4 @@ export { default as WhatsappLogo } from './whatsapp-logo.png';
 export { default as WordingSquare } from './wording_sq.jpg';
 export { default as Wording } from './wording.png';
 export { default as PhobiaOverview } from './phobia-overview.jpg';
+export { default as TeamPhoto } from './team.jpg';

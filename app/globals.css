@@ -2,8 +2,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-.font-brand {
-  font-family: 'Michroma', sans-serif;
+html {
+  scroll-behavior: smooth;
 }
 
 @custom-variant dark (&:is(.dark *));
