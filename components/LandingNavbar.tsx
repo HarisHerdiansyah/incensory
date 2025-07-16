@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
 import { navigation } from '@/lib/constants';
+import LandingSidebar from './LandingSidebar';
 import clsx from 'clsx';
 
 export default function LandingNavbar() {
@@ -67,7 +67,7 @@ export default function LandingNavbar() {
             }
           })}
         </div>
-        <Menu className='md:hidden' />
+        <LandingSidebar />
       </div>
     </nav>
   );
