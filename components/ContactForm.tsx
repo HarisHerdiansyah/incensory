@@ -32,7 +32,7 @@ export default function ContactForm() {
         action={formAction}
         className='pt-12 px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
       >
-        {contactForm.map((field, i) => (
+        {contactForm.map((field) => (
           <div id='formControl' key={field.id}>
             <Label htmlFor={field.id} className='mb-3'>
               {field.label}
