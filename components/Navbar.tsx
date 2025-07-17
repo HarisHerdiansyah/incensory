@@ -14,7 +14,8 @@ export default async function Navbar() {
 
   return (
     <div className='sticky top-0 z-50 bg-white'>
-      <nav className='py-4 px-6 md:px-10 lg:px-14 flex items-center justify-end'>
+      <nav className='py-4 px-6 md:px-10 lg:px-14 flex items-center justify-between'>
+        <p className='text-2xl text-secondary font-semibold'>Incensory</p>
         <Popover>
           <PopoverTrigger>
             <CircleUserRound size={36} className='cursor-pointer' />

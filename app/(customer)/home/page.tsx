@@ -68,31 +68,43 @@ export default async function HomePage() {
         </div>
         <TabsContent value='therapy'>
           <div className='flex flex-wrap items-center justify-center gap-6'>
-            {contents.map((content) => (
-              <GalleryCard
-                key={content.id}
-                id={content.id}
-                title={content.title}
-                category={content.category}
-                description={content.description}
-                image={thumbnail[content.category]}
-                source={content.source}
-              />
-            ))}
+            {contents.length > 0 ? (
+              contents.map((content) => (
+                <GalleryCard
+                  key={content.id}
+                  id={content.id}
+                  title={content.title}
+                  category={content.category}
+                  description={content.description}
+                  image={thumbnail[content.category]}
+                  source={content.source}
+                />
+              ))
+            ) : (
+              <p className='text-lg font-semibold italic'>
+                -- Konten Belum Tersedia --
+              </p>
+            )}
           </div>
         </TabsContent>
         <TabsContent value='catalogue'>
           <div className='flex flex-wrap items-center justify-center gap-6'>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                name={product.name}
-                price={Number(product.price)}
-                description={product.description}
-                productImages={product.product_images}
-                productLinks={product.product_links}
-              />
-            ))}
+            {products.length > 0 ? (
+              products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  name={product.name}
+                  price={Number(product.price)}
+                  description={product.description}
+                  productImages={product.product_images}
+                  productLinks={product.product_links}
+                />
+              ))
+            ) : (
+              <p className='text-lg font-semibold italic'>
+                -- Produk Belum Tersedia --
+              </p>
+            )}
           </div>
         </TabsContent>
       </Tabs>
