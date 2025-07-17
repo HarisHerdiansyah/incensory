@@ -16,6 +16,7 @@ export default async function HomePage() {
       id: true,
       name: true,
       price: true,
+      description: true,
       product_images: {
         select: {
           id: true,
@@ -87,6 +88,7 @@ export default async function HomePage() {
                 key={product.id}
                 name={product.name}
                 price={Number(product.price)}
+                description={product.description}
                 productImages={product.product_images}
                 productLinks={product.product_links}
               />
