@@ -5,6 +5,12 @@ import { db } from '@/lib/db';
 import { serverUploadUtils } from '@/lib/utils';
 import { authOptions } from '@/lib/authOptions';
 
+export type IdentityPayload = {
+  username?: string;
+  email?: string;
+  phone_number?: string;
+};
+
 export async function updateProfileImage(image: File) {
   try {
     const session = await getServerSession(authOptions);
@@ -28,5 +34,23 @@ export async function updateProfileImage(image: File) {
       success: false,
       message: 'Gagal memperbaharui foto profil. Coba lagi.',
     };
+  }
+}
+
+export async function updateIdentity(payload: IdentityPayload) {
+  if (Object.entries(payload).length === 0) {
+    return { success: false, message: 'Tidak ada field yang berubah!' };
+  }
+
+  try {
+    const session = await getServerSession(authOptions);
+    await db.user.update({
+      where: { email: session?.user.email },
+      data: payload,
+    });
+    return { success: true, message: 'Berhasil memperbahrui profil.' };
+  } catch (error) {
+    console.error('[UPDATE_IDENTITY]', error);
+    return { success: false, message: 'Gagal memperbaharui profil.' };
   }
 }

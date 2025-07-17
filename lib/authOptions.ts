@@ -70,6 +70,7 @@ export const authOptions: AuthOptions = {
         token.email = user.email || '';
         token.name = user.name || '';
         token.profileImage = user.profileImage;
+        token.phone = user.phone;
         token.role = user.role;
       }
       return token;
@@ -79,6 +80,7 @@ export const authOptions: AuthOptions = {
         session.user.email = token.email;
         session.user.name = token.name;
         session.user.profileImage = token.profileImage;
+        session.user.phone = token.phone;
         session.user.role = token.role;
       }
       return session;

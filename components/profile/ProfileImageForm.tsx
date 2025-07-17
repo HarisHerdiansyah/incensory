@@ -8,9 +8,10 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { updateProfileImage } from '@/actions/profile';
 import Loader from '../Loader';
+import { Session } from 'next-auth';
 
-export default function ProfileImageForm() {
-  const { update, data } = useSession();
+export default function ProfileImageForm({ session }: { session: Session }) {
+  const { update } = useSession();
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const onUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,9 +35,9 @@ export default function ProfileImageForm() {
       {isUploading && <Loader />}
       <div className='my-8 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-center gap-8'>
         <div className='w-[220px] h-[220px] rounded-full bg-muted relative overflow-hidden border border-black'>
-          {data?.user.profileImage && (
+          {session.user.profileImage && (
             <Image
-              src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${data?.user.profileImage}`}
+              src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${session.user.profileImage}`}
               alt='Profile'
               className='object-cover'
               fill
