@@ -13,7 +13,6 @@ export async function insertContent(formData: FormData) {
   const description = formData.get('description') as string;
   const category = formData.get('category') as VRCategory;
   const source = formData.get('source') as string;
-  console.log(title, description, category, source);
 
   if (!title || !description || !category || !source) {
     return { success: false, message: 'Semua field wajib diisi.' };
@@ -43,7 +42,6 @@ export async function updateContent(id: string, formData: FormData) {
   const raw = formData.get('updatedContent');
   const updatedContent = parseJsonSafe<any>(raw);
 
-  console.log(updatedContent);
   if (!updatedContent || Object.keys(updatedContent).length === 0) {
     return { success: false, message: 'Data tidak valid.' };
   }

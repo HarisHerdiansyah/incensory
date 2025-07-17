@@ -16,6 +16,7 @@ export default async function HomePage() {
       id: true,
       name: true,
       price: true,
+      description: true,
       product_images: {
         select: {
           id: true,
@@ -52,13 +53,13 @@ export default async function HomePage() {
             <TabsList className='w-full'>
               <TabsTrigger
                 value='therapy'
-                className='data-[state=active]:bg-primary cursor-pointer'
+                className='data-[state=active]:bg-primary cursor-pointer font-bold'
               >
                 Ruang Terapi
               </TabsTrigger>
               <TabsTrigger
                 value='catalogue'
-                className='data-[state=active]:bg-primary cursor-pointer'
+                className='data-[state=active]:bg-primary cursor-pointer font-bold'
               >
                 Katalog Produk
               </TabsTrigger>
@@ -66,31 +67,44 @@ export default async function HomePage() {
           </div>
         </div>
         <TabsContent value='therapy'>
-          <div className='flex items-center justify-evenly gap-6'>
-            {contents.map((content) => (
-              <GalleryCard
-                key={content.id}
-                id={content.id}
-                title={content.title}
-                category={content.category}
-                description={content.description}
-                image={thumbnail[content.category]}
-                source={content.source}
-              />
-            ))}
+          <div className='flex flex-wrap items-center justify-center gap-6'>
+            {contents.length > 0 ? (
+              contents.map((content) => (
+                <GalleryCard
+                  key={content.id}
+                  id={content.id}
+                  title={content.title}
+                  category={content.category}
+                  description={content.description}
+                  image={thumbnail[content.category]}
+                  source={content.source}
+                />
+              ))
+            ) : (
+              <p className='text-lg font-semibold italic'>
+                -- Konten Belum Tersedia --
+              </p>
+            )}
           </div>
         </TabsContent>
         <TabsContent value='catalogue'>
-          <div className='flex items-center justify-center gap-6'>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                name={product.name}
-                price={Number(product.price)}
-                productImages={product.product_images}
-                productLinks={product.product_links}
-              />
-            ))}
+          <div className='flex flex-wrap items-center justify-center gap-6'>
+            {products.length > 0 ? (
+              products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  name={product.name}
+                  price={Number(product.price)}
+                  description={product.description}
+                  productImages={product.product_images}
+                  productLinks={product.product_links}
+                />
+              ))
+            ) : (
+              <p className='text-lg font-semibold italic'>
+                -- Produk Belum Tersedia --
+              </p>
+            )}
           </div>
         </TabsContent>
       </Tabs>

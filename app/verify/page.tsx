@@ -83,7 +83,9 @@ function Failed() {
       </p>
       <p className='text-center'>
         Sepertinya terjadi masalah, verifikasi ulang akun melalui dengan klik{' '}
-        <span className='underline cursor-pointer'>di sini.</span>
+        <Link href='/verification' className='underline cursor-pointer'>
+          di sini.
+        </Link>
       </p>
     </div>
   );
@@ -103,20 +105,31 @@ export default async function Verify({
     ) as VerificationPayload;
 
     if (payload.type !== 'VERIFICATION') {
-      throw new Error('Invalid type');
+      throw new Error('Invalid type.');
     }
 
-    await db.$transaction(async (tx) => {
-      await tx.accessCode.update({
-        where: { code: payload.code },
-        data: { is_used: true, user_id: payload.id },
-      });
-
-      await tx.user.update({
-        where: { id: payload.id },
-        data: { verification: true },
-      });
+    const userData = await db.user.findUnique({
+      where: { email: payload.email },
+      select: { verification: true },
     });
+
+    if (!userData) {
+      throw new Error('Account is not registered.');
+    }
+
+    if (!userData.verification) {
+      await db.$transaction(async (tx) => {
+        await tx.accessCode.update({
+          where: { code: payload.code },
+          data: { is_used: true, user_id: payload.id },
+        });
+
+        await tx.user.update({
+          where: { id: payload.id },
+          data: { verification: true },
+        });
+      });
+    }
 
     return (
       <main className='flex justify-center'>
@@ -124,7 +137,7 @@ export default async function Verify({
       </main>
     );
   } catch (error) {
-    console.log('[VERIFICATION ERROR]', error);
+    console.error('[VERIFICATION ERROR]', error);
     return (
       <main className='flex justify-center'>
         <Failed />

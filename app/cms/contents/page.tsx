@@ -19,7 +19,7 @@ export default async function Products() {
     <>
       <h1 className='text-2xl font-semibold'>Daftar Konten</h1>
       <div className='flex justify-end'>
-        <Link href='/cms/contents/mutate?mode=add'>
+        <Link href='/cms/contents/new'>
           <Button className='bg-secondary cursor-pointer'>
             <Plus />
             Tambah Konten

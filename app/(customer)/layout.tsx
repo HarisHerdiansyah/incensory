@@ -7,7 +7,7 @@ export default function CustomerLayout({
   return (
     <>
       <Navbar />
-      <main className='mt-6 mb-20 px-16'>{children}</main>
+      <main className='mt-6 mb-20 px-10 sm:px-16'>{children}</main>
       <Rating />
     </>
   );

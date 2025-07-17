@@ -45,10 +45,13 @@ export default function GalleryCard({
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>
-                {category} | {title}
-              </DialogTitle>
-              <DialogDescription>{description}</DialogDescription>
+              <DialogTitle>{title}</DialogTitle>
+              <DialogDescription className='text-base'>
+                Kategori: {category}
+              </DialogDescription>
+              <DialogDescription className='text-base'>
+                {description}
+              </DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>

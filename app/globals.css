@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -147,12 +147,17 @@ html {
   }
 }
 
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
 .bg-gradient {
   background: linear-gradient(45deg, #12b2c1, #0d8a9e, #23717b);
 }
 
 #auth {
   background: linear-gradient(45deg, #e5f9f8, #12b2c1);
+  padding: 1.5rem 1rem;
 }
 
 .embla {
@@ -167,4 +172,9 @@ html {
 }
 .embla__slide {
   flex: 0 0 100%;
+}
+
+label,
+button {
+  font-weight: 600;
 }

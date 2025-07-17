@@ -54,7 +54,7 @@ export default function LoginForm() {
       <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className='pt-12 px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
+        className='pt-12 px-6 sm:px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
       >
         <div className='flex justify-center items-center'>
           <Image src={Wording} alt='Incensory' width={220} height={120} />
