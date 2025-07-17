@@ -162,3 +162,16 @@ export async function archiveProduct(id: string, isVisible: boolean) {
     return { success: false, message: 'Produk gagal diarsipkan' };
   }
 }
+
+export async function cancelProductMutation(fileKeys: string[]) {
+  if (fileKeys.length === 0) return { success: true, message: '' };
+  const fileKeysSet = Array.from(new Set(fileKeys));
+
+  try {
+    await deleteFilesFromS3(fileKeysSet);
+    return { success: true, message: '' };
+  } catch (error) {
+    console.error('[CANCEL_MUTATE_PRODUCT]', error);
+    return { success: false, message: 'Terjadi kesalahan, silahkan coba lagi' };
+  }
+}

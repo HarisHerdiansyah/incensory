@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 type LinkTarget = 'SHOPEE' | 'TOKOPEDIA' | 'WHATSAPP';
 
 export type ProductFormState = {
@@ -11,6 +13,8 @@ export type ProductFormState = {
 };
 
 export type ProductProps = {
+  uploading: boolean;
+  setUploading: Dispatch<SetStateAction<boolean>>;
   values: ProductFormState;
   onChange: <K extends keyof ProductFormState>(
     field: K,

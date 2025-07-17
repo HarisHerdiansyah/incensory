@@ -1,8 +1,6 @@
-// TODO: KALO OBJECT GAK JADI ADD ATAU UPDATE, ITEM YANG UDAH UPLOAD DI DELETE LAGI
-
 'use client';
 
-import { useState } from 'react';
+import { SetStateAction, useState, Dispatch } from 'react';
 import Image from 'next/image';
 import { uploadToS3 } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
@@ -13,13 +11,21 @@ import { Trash } from 'lucide-react';
 interface Props {
   initialImages?: string[];
   onChange: (existing: string[], uploaded: string[], deleted: string[]) => void;
+  uploading: boolean;
+  setUploading: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ImageUploadMultiple({ initialImages = [], onChange }: Props) {
+export function ImageUploadMultiple({
+  initialImages = [],
+  onChange,
+  uploading,
+  setUploading,
+}: Props) {
   const [currentImages, setCurrentImages] = useState<string[]>(initialImages);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [deletedImages, setDeletedImages] = useState<string[]>([]);
-  const [uploading, setUploading] = useState(false);
+
+  console.log(currentImages);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -37,6 +43,7 @@ export function ImageUploadMultiple({ initialImages = [], onChange }: Props) {
       }
     }
 
+    setCurrentImages([...currentImages, ...newKeys]);
     const newImages = [...uploadedImages, ...newKeys];
     setUploadedImages(newImages);
     onChange(currentImages, newImages, deletedImages);
@@ -65,33 +72,35 @@ export function ImageUploadMultiple({ initialImages = [], onChange }: Props) {
       </div>
       <div className=''>
         <Label className='mb-2'>Preview Produk</Label>
-        <div className='w-full h-52 flex items-center justify-center overflow-x-scroll space-x-2'>
-          {currentImages.length === 0 ? (
-            <span className='text-gray-400'>
-              -- preview gambar produk di sini --
-            </span>
-          ) : (
-            currentImages.map((key, idx) => (
-              <div className='relative h-full border' key={key}>
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${key}`}
-                  alt={`Preview ${idx + 1}`}
-                  className='h-full'
-                  width={180}
-                  height={180}
-                />
-                <Button
-                  type='button'
-                  onClick={() => handleDelete(key)}
-                  className='absolute top-1 right-1'
-                  variant='destructive'
-                  size='icon'
-                >
-                  <Trash />
-                </Button>
-              </div>
-            ))
-          )}
+        <div className='w-full h-52 overflow-x-scroll'>
+          <div className='flex space-x-2 min-w-max px-2'>
+            {currentImages.length === 0 ? (
+              <span className='text-gray-400'>
+                -- preview gambar produk di sini --
+              </span>
+            ) : (
+              currentImages.map((key, idx) => (
+                <div className='relative h-full border' key={key}>
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${key}`}
+                    alt={`Preview ${idx + 1}`}
+                    className='h-full'
+                    width={180}
+                    height={180}
+                  />
+                  <Button
+                    type='button'
+                    onClick={() => handleDelete(key)}
+                    className='absolute top-1 right-1 cursor-pointer'
+                    variant='destructive'
+                    size='icon'
+                  >
+                    <Trash />
+                  </Button>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </>
