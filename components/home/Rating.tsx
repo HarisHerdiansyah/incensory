@@ -59,15 +59,28 @@ export default function Rating() {
           <MessageCircle strokeWidth={3} className='h-6 w-6' />
         </Button>
       ) : (
-        <Card className='max-w-72 shadow-xl border-0 animate-in slide-in-from-bottom-2 duration-300'>
+        <Card className='w-72 shadow-xl border-0 animate-in slide-in-from-bottom-2 duration-300'>
           <CardHeader className=''>
             <div className='flex items-center justify-between'>
-              <div>
-                <CardTitle className='text-lg'>Rating Platform Kami!</CardTitle>
-                <CardDescription className='text-sm'>
-                  Masukan Anda membantu kami meningkatkan layanan.
-                </CardDescription>
-              </div>
+              {isSubmitted ? (
+                <div>
+                  <CardTitle className='text-lg'>
+                    Terima Kasih!
+                  </CardTitle>
+                  <CardDescription className='text-sm'>
+                    Semua penilaian membantu kami lebih baik lagi.
+                  </CardDescription>
+                </div>
+              ) : (
+                <div>
+                  <CardTitle className='text-lg'>
+                    Rating Platform Kami!
+                  </CardTitle>
+                  <CardDescription className='text-sm'>
+                    Masukan Anda membantu kami meningkatkan layanan.
+                  </CardDescription>
+                </div>
+              )}
               <Button
                 variant='ghost'
                 size='icon'
