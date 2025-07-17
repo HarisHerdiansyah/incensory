@@ -13,15 +13,21 @@ import {
 } from '@/components/ui/select';
 
 type Props = {
+  mode: string;
   defaultValues?: {
     title: string;
     description: string;
     category: VRCategory;
     source: string;
   };
+  isVideoUploaded?: boolean;
 };
 
-export default function ContentFormFields({ defaultValues }: Props) {
+export default function ContentFormFields({
+  mode,
+  defaultValues,
+  isVideoUploaded,
+}: Props) {
   return (
     <>
       <div className='grid gap-2'>
@@ -31,6 +37,7 @@ export default function ContentFormFields({ defaultValues }: Props) {
           name='title'
           defaultValue={defaultValues?.title ?? ''}
           placeholder='Masukkan judul konten'
+          disabled={mode === 'add' && !isVideoUploaded}
           required
         />
       </div>
@@ -42,6 +49,7 @@ export default function ContentFormFields({ defaultValues }: Props) {
           name='description'
           defaultValue={defaultValues?.description ?? ''}
           placeholder='Tuliskan deskripsi konten'
+          disabled={mode === 'add' && !isVideoUploaded}
           required
         />
       </div>
@@ -51,6 +59,7 @@ export default function ContentFormFields({ defaultValues }: Props) {
         <Select
           name='category'
           defaultValue={defaultValues?.category ?? VRCategory.ACROPHOBIA}
+          disabled={mode === 'add' && !isVideoUploaded}
         >
           <SelectTrigger className='w-full'>
             <SelectValue placeholder='Pilih kategori' />

@@ -15,10 +15,10 @@ const s3 = new S3Client({
 const BUCKET_NAME = process.env.S3_BUCKET!;
 
 export async function POST(req: NextRequest) {
-  const { filename, fileType } = await req.json();
+  const { filename, fileType, fileDirectory } = await req.json();
 
   const fileExt = filename.split('.').pop();
-  const key = `products/${uuidv4()}.${fileExt}`;
+  const key = `${fileDirectory}/${uuidv4()}.${fileExt}`;
 
   const command = new PutObjectCommand({
     Bucket: BUCKET_NAME,

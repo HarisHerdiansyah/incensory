@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
@@ -24,9 +25,11 @@ type Props = {
 };
 
 export default function VRContentForm({ mode, contentId, initialData }: Props) {
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isVideoUploaded, setIsVideoUploaded] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -41,9 +44,10 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
 
     setIsUploading(true);
     try {
-      const key = await uploadToS3(videoFile);
+      const key = await uploadToS3(videoFile, 'contents');
       window.sessionStorage.setItem('videoKey', key);
       toast.success('File berhasil diunggah');
+      setIsVideoUploaded(true);
     } catch (err) {
       console.error('Upload error', err);
       toast.error('Gagal mengunggah file');
@@ -89,19 +93,40 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
         <Label htmlFor='video'>Unggah Konten (Video)</Label>
         <Input type='file' accept='video/*' onChange={handleFileChange} />
         <Button
+          className='cursor-pointer'
+          variant='secondary'
           type='button'
           onClick={handleUpload}
           disabled={isUploading || !videoFile}
         >
-          {isUploading ? 'Mengunggah...' : 'Unggah ke S3'}
+          {isUploading ? 'Mengunggah...' : 'Unggah Video'}
         </Button>
       </div>
 
       <form ref={formRef} onSubmit={handleSubmit} className='space-y-6 mt-6'>
-        <ContentFormFields defaultValues={initialData} />
-        <Button variant='outline' type='submit'>
-          {mode === 'add' ? 'Tambah Konten' : 'Simpan Perubahan'}
-        </Button>
+        <ContentFormFields
+          mode={mode}
+          defaultValues={initialData}
+          isVideoUploaded={isVideoUploaded}
+        />
+        <div className='flex justify-between'>
+          <Button
+            variant='outline'
+            type='button'
+            className='cursor-pointer'
+            onClick={() => router.back()}
+          >
+            Kembali
+          </Button>
+          <Button
+            variant='secondary'
+            type='submit'
+            className='cursor-pointer'
+            disabled={mode === 'add' && !isVideoUploaded}
+          >
+            {mode === 'add' ? 'Tambah Konten' : 'Simpan Perubahan'}
+          </Button>
+        </div>
       </form>
     </>
   );

@@ -14,13 +14,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function uploadToS3(file: File): Promise<string> {
+export async function uploadToS3(file: File, dir: string): Promise<string> {
   const res = await fetch('/api/s3/upload-url', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       filename: file.name,
       fileType: file.type,
+      fileDirectory: dir
     }),
   });
 
@@ -116,7 +117,7 @@ export function emailHtmlContent(username: string, verificationLink: string) {
         <h2>Hai, ${username}</h2>
         <p>
           Terima kasih telah mendaftar. Untuk menyelesaikan proses pendaftaran,
-          silakan klik tombol di bawah ini untuk memverifikasi alamat email Anda.
+          silakan klik tombol di bawah ini untuk memverifikasi alamat email Anda. Tautan verifikasi ini akan kedaluwarsa dalam 15 menit.
         </p>
         <a href="${verificationLink}" class="button">Verifikasi Sekarang</a>
         <p>

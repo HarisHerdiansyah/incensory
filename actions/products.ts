@@ -158,7 +158,7 @@ export async function archiveProduct(id: string, isVisible: boolean) {
     revalidatePath('/cms/products');
     return { success: true, message: 'Produk behasil diarsipkan' };
   } catch (error) {
-    console.log('[DELETE_PRODUCT]', error);
+    console.error('[DELETE_PRODUCT]', error);
     return { success: false, message: 'Produk gagal diarsipkan' };
   }
 }

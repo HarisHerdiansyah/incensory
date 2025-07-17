@@ -30,7 +30,7 @@ export function ImageUploadMultiple({ initialImages = [], onChange }: Props) {
 
     for (const file of Array.from(files)) {
       try {
-        const key = await uploadToS3(file);
+        const key = await uploadToS3(file, 'products');
         newKeys.push(key);
       } catch (err) {
         console.error('Upload gagal:', err);
