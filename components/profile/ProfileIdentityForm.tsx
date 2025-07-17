@@ -1,6 +1,7 @@
 'use client';
 
 import { Session } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { ChangeEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Label } from '@/components/ui/label';
@@ -11,6 +12,7 @@ import Loader from '../Loader';
 import { diffing } from '@/lib/utils';
 
 export default function ProfileIdentityForm({ session }: { session: Session }) {
+  const { update } = useSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [identityState, setIdentityState] = useState({
     username: session.user.username || '',
@@ -35,9 +37,10 @@ export default function ProfileIdentityForm({ session }: { session: Session }) {
     };
     const payload = diffing(initial, identityState);
     const response = await updateIdentity(payload);
-    
+
     if (response.success) {
       toast.success(response.message);
+      await update({ ...payload });
     } else {
       toast.error(response.message);
     }

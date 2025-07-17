@@ -1,5 +1,6 @@
 'use server';
 
+import bcyrpt from 'bcrypt';
 import { getServerSession } from 'next-auth';
 import { db } from '@/lib/db';
 import { serverUploadUtils } from '@/lib/utils';
@@ -52,5 +53,20 @@ export async function updateIdentity(payload: IdentityPayload) {
   } catch (error) {
     console.error('[UPDATE_IDENTITY]', error);
     return { success: false, message: 'Gagal memperbaharui profil.' };
+  }
+}
+
+export async function updatePassword(password: string) {
+  try {
+    const session = await getServerSession(authOptions);
+    const hashedPassword = await bcyrpt.hash(password, 10);
+    await db.user.update({
+      where: { email: session?.user.email },
+      data: { password: hashedPassword },
+    });
+    return { success: true, message: 'Berhasil memperbaharui kata sandi.' };
+  } catch (error) {
+    console.error('[UPDATE_PASSWORD]', error);
+    return { success: false, message: 'Gagal memperbaharui kata sandi.' };
   }
 }

@@ -18,7 +18,7 @@ export default async function page() {
       <ProfileImageForm session={session} />
       <div className='my-8 space-y-8 md:px-10 lg:px-16'>
         <ProfileIdentityForm session={session} />
-        <ProfilePasswordForm session={session} />
+        <ProfilePasswordForm />
       </div>
     </>
   );
