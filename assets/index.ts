@@ -8,3 +8,4 @@ export { default as WordingSquare } from './wording_sq.jpg';
 export { default as Wording } from './wording.png';
 export { default as PhobiaOverview } from './phobia-overview.jpg';
 export { default as TeamPhoto } from './team.jpg';
+export { default as Illust } from './illust.jpg';

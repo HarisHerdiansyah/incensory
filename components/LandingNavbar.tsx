@@ -25,7 +25,7 @@ export default function LandingNavbar() {
   return (
     <nav
       className={clsx(
-        'py-4 px-6 md:px-10 lg:px-14 fixed w-full transition-all duration-300',
+        'z-50 py-4 px-6 md:px-10 lg:px-14 fixed w-full transition-all duration-300',
         {
           'bg-secondary shadow-lg': scrolled,
           'bg-transparent': !scrolled,
@@ -33,7 +33,14 @@ export default function LandingNavbar() {
       )}
     >
       <div className='flex items-center justify-between'>
-        <aside>[LOGO DI SINI]</aside>
+        <aside
+          className={clsx('font-semibold text-2xl', {
+            'text-secondary-foreground': scrolled,
+            'text-secondary': !scrolled,
+          })}
+        >
+          <p>Incensory</p>
+        </aside>
         <div className='hidden md:flex items-center gap-x-8'>
           {navigation.map((navItem) => {
             if (navItem.href.startsWith('/')) {

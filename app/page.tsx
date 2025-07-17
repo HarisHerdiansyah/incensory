@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-  Mail,
-  MapPin,
-  Phone,
-  Clock,
-  Instagram,
-  Youtube,
-} from 'lucide-react';
+import { Mail, MapPin, Phone, Clock, Instagram, Youtube } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { TeamPhoto } from '@/assets';
+import { Illust, TeamPhoto, WordingSquare } from '@/assets';
 import {
   contentLists,
   service,
@@ -34,8 +27,13 @@ export default function page() {
       <LandingNavbar />
 
       <div className='bg-muted w-full min-h-screen grid lg:grid-cols-2 p-8 sm:p-12 md:p-16 gap-4 md:gap-8 items-center justify-items-center'>
-        <div className='bg-white w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center'>
-          [LOGO INCENSORY]
+        <div className='bg-white w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center relative overflow-hidden'>
+          <Image
+            src={WordingSquare}
+            alt='Photo-1'
+            className='object-cover'
+            fill
+          />
         </div>
         <article className='justify-self-start space-y-3'>
           <p className='text-2xl md:text-4xl font-semibold'>Incensory</p>
@@ -49,7 +47,10 @@ export default function page() {
                 Mulai
               </Button>
             </Link>
-            <Button className='cursor-pointer text-secondary' variant='link'>
+            <Button
+              className='cursor-pointer text-secondary font-semibold'
+              variant='link'
+            >
               Pelajari Lebih Lanjut
             </Button>
           </div>
@@ -120,8 +121,8 @@ export default function page() {
               menghadapi ketakutan dengan cara yang ilmiah dan manusiawi.
             </p>
           </article>
-          <div className='bg-muted w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center'>
-            [ILLUSTRASI DI SINI]
+          <div className='w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center relative overflow-hidden'>
+            <Image src={Illust} alt='Photo-2' className='object-cover' fill />
           </div>
         </div>
       </section>

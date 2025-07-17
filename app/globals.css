@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
@@ -145,6 +145,10 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
 }
 
 .bg-gradient {
