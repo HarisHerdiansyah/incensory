@@ -44,24 +44,33 @@ export const authOptions: AuthOptions = {
           throw new Error('Kata sandi salah.');
         }
 
-        const { email, username, profile_image, role } = user;
+        const { email, username, profile_image, role, phone_number } = user;
 
         return {
           id: '',
           email,
-          name: username,
-          profileImage: profile_image ?? '',
+          username,
+          profile_image: profile_image ?? '',
+          phone_number,
           role,
         };
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, trigger, session }) => {
+      if (trigger === 'update') {
+        if (session.email) token.email = session.email;
+        if (session.username) token.username = session.username;
+        if (session.profile_image) token.profile_image = session.profile_image;
+        if (session.phone_number) token.phone_number = session.phone_number;
+      }
+
       if (user) {
         token.email = user.email || '';
-        token.name = user.name || '';
-        token.profileImage = user.profileImage;
+        token.username = user.username || '';
+        token.profile_image = user.profile_image;
+        token.phone_number = user.phone_number;
         token.role = user.role;
       }
       return token;
@@ -69,8 +78,9 @@ export const authOptions: AuthOptions = {
     session: async ({ session, token }) => {
       if (session.user) {
         session.user.email = token.email;
-        session.user.name = token.name;
-        session.user.profileImage = token.profileImage;
+        session.user.username = token.username;
+        session.user.profile_image = token.profile_image;
+        session.user.phone_number = token.phone_number;
         session.user.role = token.role;
       }
       return session;

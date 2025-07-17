@@ -31,13 +31,13 @@ export default function RegisterForm() {
       {isPending && <Loader />}
       <form
         action={formAction}
-        className='pt-12 px-8 pb-8 rounded-md flex-1 max-w-[700px] bg-white space-y-6'
+        className='pt-12 px-6 sm:px-8 pb-8 rounded-md flex-1 max-w-[700px] bg-white space-y-6'
       >
         <div className='flex justify-center items-center'>
           <Image src={Wording} alt='Incensory' width={220} height={120} />
         </div>
         {registerForm.map((block, i) => (
-          <div className='grid grid-cols-2 gap-x-6' key={i}>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6' key={i}>
             {block.map((field) => (
               <div id='formControl' key={field.id}>
                 <Label htmlFor={field.id} className='mb-3'>

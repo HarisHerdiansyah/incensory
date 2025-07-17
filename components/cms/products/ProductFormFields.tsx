@@ -6,7 +6,12 @@ import { Label } from '@/components/ui/label';
 import { ImageUploadMultiple } from './ImageUploadMultiple';
 import { ProductProps } from './types';
 
-export default function ProductFormFields({ values, onChange }: ProductProps) {
+export default function ProductFormFields({
+  uploading,
+  setUploading,
+  values,
+  onChange,
+}: ProductProps) {
   return (
     <div className='grid grid-cols-2 space-y-6 gap-6'>
       {/* Name */}
@@ -89,17 +94,16 @@ export default function ProductFormFields({ values, onChange }: ProductProps) {
       </div>
 
       {/* Images */}
-      {/* <div id='formControl'> */}
-        {/* <Label className='mb-2'>Gambar Produk</Label> */}
-        <ImageUploadMultiple
-          initialImages={values.existingImages}
-          onChange={(existing, uploaded, deleted) => {
-            onChange('existingImages', existing);
-            onChange('uploadedImages', uploaded);
-            onChange('deletedImages', deleted);
-          }}
-        />
-      {/* </div> */}
+      <ImageUploadMultiple
+        uploading={uploading}
+        setUploading={setUploading}
+        initialImages={values.existingImages}
+        onChange={(existing, uploaded, deleted) => {
+          onChange('existingImages', existing);
+          onChange('uploadedImages', uploaded);
+          onChange('deletedImages', deleted);
+        }}
+      />
     </div>
   );
 }

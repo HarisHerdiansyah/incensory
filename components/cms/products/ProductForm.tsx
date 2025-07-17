@@ -5,7 +5,11 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import ProductFormFields from './ProductFormFields';
 import { ProductFormState, ProductFormProps } from './types';
-import { createProduct, updateProduct } from '@/actions/products';
+import {
+  cancelProductMutation,
+  createProduct,
+  updateProduct,
+} from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import Loader from '@/components/Loader';
 
@@ -27,6 +31,7 @@ export default function ProductForm({
   const [formState, setFormState] = useState<ProductFormState>(
     defaultValues || initialFormState
   );
+  const [uploading, setUploading] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -85,16 +90,38 @@ export default function ProductForm({
     });
   };
 
+  const handleCancel = async () => {
+    setUploading(true);
+    const response = await cancelProductMutation([
+      ...formState.uploadedImages,
+      ...formState.deletedImages,
+    ]);
+
+    if (!response.success) {
+      setUploading(false);
+      toast.error(response.message);
+      return;
+    }
+
+    setUploading(false);
+    router.back();
+  };
+
   return (
     <>
-      {isPending && <Loader />}
+      {(isPending || uploading) && <Loader />}
       <div className='space-y-6'>
-        <ProductFormFields values={formState} onChange={handleChange} />
+        <ProductFormFields
+          uploading={uploading}
+          setUploading={setUploading}
+          values={formState}
+          onChange={handleChange}
+        />
         <div className='flex justify-between'>
           <Button
             variant='outline'
             className='cursor-pointer'
-            onClick={() => router.back()}
+            onClick={handleCancel}
           >
             Kembali
           </Button>

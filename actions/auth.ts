@@ -34,7 +34,7 @@ export async function sendEmailVerification(payload: {
       },
       process.env.JWT_SECRET as string,
       {
-        expiresIn: '1h',
+        expiresIn: '15m',
       }
     );
 
