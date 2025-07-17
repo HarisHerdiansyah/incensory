@@ -12,7 +12,7 @@ export default async function Navbar() {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className='sticky top-0 bg-white'>
+    <div className='sticky top-0 z-50 bg-white'>
       <nav className='px-16 py-4 flex items-center justify-end'>
         <Popover>
           <PopoverTrigger>

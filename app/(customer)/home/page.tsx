@@ -67,7 +67,7 @@ export default async function HomePage() {
           </div>
         </div>
         <TabsContent value='therapy'>
-          <div className='flex items-center justify-evenly gap-6'>
+          <div className='flex flex-wrap items-center justify-center gap-6'>
             {contents.map((content) => (
               <GalleryCard
                 key={content.id}
@@ -82,7 +82,7 @@ export default async function HomePage() {
           </div>
         </TabsContent>
         <TabsContent value='catalogue'>
-          <div className='flex items-center justify-center gap-6'>
+          <div className='flex flex-wrap items-center justify-center gap-6'>
             {products.map((product) => (
               <ProductCard
                 key={product.id}
