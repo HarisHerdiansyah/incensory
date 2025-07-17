@@ -1,6 +1,14 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { S3Client, DeleteObjectsCommand } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  DeleteObjectsCommand,
+  PutObjectCommand,
+} from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid';
+
+const BUCKET_NAME = process.env.S3_BUCKET!;
+
 export const s3Client = new S3Client({
   region: 'auto',
   endpoint: process.env.S3_ENDPOINT as string,
@@ -14,14 +22,35 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export async function uploadToS3(file: File, dir: string): Promise<string> {
+export async function serverUploadUtils(file: File, dir: string) {
+  const fileExt = file.name.split('.').pop();
+  const key = `${dir}/${uuidv4()}.${fileExt}`;
+  const input = {
+    Body: new Uint8Array(await file.arrayBuffer()),
+    Key: key,
+    Bucket: BUCKET_NAME,
+  };
+
+  try {
+    await s3Client.send(new PutObjectCommand(input));
+    return key;
+  } catch (error) {
+    console.error('Error Upload to S3', error);
+    return '';
+  }
+}
+
+export async function clientUploadUtils(
+  file: File,
+  dir: string
+): Promise<string> {
   const res = await fetch('/api/s3/upload-url', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       filename: file.name,
       fileType: file.type,
-      fileDirectory: dir
+      fileDirectory: dir,
     }),
   });
 

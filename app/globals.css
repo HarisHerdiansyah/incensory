@@ -173,3 +173,8 @@ body {
 .embla__slide {
   flex: 0 0 100%;
 }
+
+label,
+button {
+  font-weight: 600;
+}

@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import Loader from '@/components/Loader';
 import ContentFormFields from './ContentFormFields';
 import { insertContent, updateContent } from '@/actions/contents';
-import { uploadToS3, diffing } from '@/lib/utils';
+import { clientUploadUtils, diffing } from '@/lib/utils';
 import { VRCategory } from '@prisma/client';
 
 type Mode = 'add' | 'edit';
@@ -46,7 +46,7 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
 
     setIsUploading(true);
     try {
-      const key = await uploadToS3(videoFile, 'contents');
+      const key = await clientUploadUtils(videoFile, 'contents');
       window.sessionStorage.setItem('videoKey', key);
       toast.success('File berhasil diunggah');
       setIsVideoUploaded(true);

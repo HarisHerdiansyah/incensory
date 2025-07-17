@@ -2,7 +2,7 @@
 
 import { SetStateAction, useState, Dispatch } from 'react';
 import Image from 'next/image';
-import { uploadToS3 } from '@/lib/utils';
+import { clientUploadUtils } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -36,7 +36,7 @@ export function ImageUploadMultiple({
 
     for (const file of Array.from(files)) {
       try {
-        const key = await uploadToS3(file, 'products');
+        const key = await clientUploadUtils(file, 'products');
         newKeys.push(key);
       } catch (err) {
         console.error('Upload gagal:', err);

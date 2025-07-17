@@ -44,20 +44,28 @@ export const authOptions: AuthOptions = {
           throw new Error('Kata sandi salah.');
         }
 
-        const { email, username, profile_image, role } = user;
+        const { email, username, profile_image, role, phone_number } = user;
 
         return {
           id: '',
           email,
           name: username,
           profileImage: profile_image ?? '',
+          phone: phone_number,
           role,
         };
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, trigger, session }) => {
+      if (trigger === 'update') {
+        if (session.email) token.email = session.email;
+        if (session.name) token.name = session.name;
+        if (session.profileImage) token.profileImage = session.profileImage;
+        if (session.phone) token.phone = session.phone;
+      }
+
       if (user) {
         token.email = user.email || '';
         token.name = user.name || '';

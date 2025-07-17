@@ -49,7 +49,7 @@ export default function Rating() {
   };
 
   return (
-    <div className='fixed bottom-6 right-6 z-50'>
+    <div className='fixed bottom-4 right-4 z-50'>
       {!isExpanded ? (
         <Button
           onClick={() => setIsExpanded(true)}
@@ -59,7 +59,7 @@ export default function Rating() {
           <MessageCircle strokeWidth={3} className='h-6 w-6' />
         </Button>
       ) : (
-        <Card className='w-80 shadow-xl border-0 animate-in slide-in-from-bottom-2 duration-300'>
+        <Card className='max-w-72 shadow-xl border-0 animate-in slide-in-from-bottom-2 duration-300'>
           <CardHeader className=''>
             <div className='flex items-center justify-between'>
               <div>
