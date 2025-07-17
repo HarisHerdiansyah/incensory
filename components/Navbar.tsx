@@ -24,7 +24,9 @@ export default async function Navbar() {
               <CircleUserRound size={48} />
               <Link href='/profile'>
                 <aside>
-                  <p className='font-semibold'>{session?.user.name || ''}</p>
+                  <p className='font-semibold'>
+                    {session?.user.username || ''}
+                  </p>
                   <p>{session?.user.email || ''}</p>
                 </aside>
               </Link>

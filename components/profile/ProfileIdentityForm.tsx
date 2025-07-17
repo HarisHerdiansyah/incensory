@@ -13,9 +13,9 @@ import { diffing } from '@/lib/utils';
 export default function ProfileIdentityForm({ session }: { session: Session }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [identityState, setIdentityState] = useState({
-    username: session.user.name || '',
+    username: session.user.username || '',
     email: session.user.email || '',
-    phone_number: session.user.phone || '',
+    phone_number: session.user.phone_number || '',
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,9 +29,9 @@ export default function ProfileIdentityForm({ session }: { session: Session }) {
     setIsLoading(true);
 
     const initial = {
-      username: session.user.name,
+      username: session.user.username,
       email: session.user.email,
-      phone_number: session.user.phone,
+      phone_number: session.user.phone_number,
     };
     const payload = diffing(initial, identityState);
     const response = await updateIdentity(payload);

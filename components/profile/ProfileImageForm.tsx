@@ -21,7 +21,7 @@ export default function ProfileImageForm({ session }: { session: Session }) {
 
     const response = await updateProfileImage(image);
     if (response.success) {
-      await update({ profileImage: response.data });
+      await update({ profile_image: response.data });
       toast.success(response.message);
     } else {
       toast.error(response.message);
@@ -35,9 +35,9 @@ export default function ProfileImageForm({ session }: { session: Session }) {
       {isUploading && <Loader />}
       <div className='my-8 md:px-10 lg:px-16 flex flex-col md:flex-row items-center justify-center gap-8'>
         <div className='w-[220px] h-[220px] rounded-full bg-muted relative overflow-hidden border border-black'>
-          {session.user.profileImage && (
+          {session.user.profile_image && (
             <Image
-              src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${session.user.profileImage}`}
+              src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${session.user.profile_image}`}
               alt='Profile'
               className='object-cover'
               fill
