@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Loader from '@/components/Loader';
 import ContentFormFields from './ContentFormFields';
 import { insertContent, updateContent } from '@/actions/contents';
 import { uploadToS3, diffing } from '@/lib/utils';
@@ -30,6 +31,7 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isVideoUploaded, setIsVideoUploaded] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -61,11 +63,13 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
     const formData = new FormData(formRef.current!);
     formData.set('source', window.sessionStorage.getItem('videoKey') as string);
 
+    setIsSubmitting(true);
+
     if (mode === 'add') {
       const result = await insertContent(formData);
       if (result.success) {
         toast.success(result.message);
-        formRef.current?.reset();
+        router.back();
         setVideoFile(null);
       } else {
         toast.error(result.message);
@@ -81,14 +85,19 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
       const result = await updateContent(contentId, formData);
       if (result.success) {
         toast.success(result.message);
+        router.back();
       } else {
         toast.error(result.message);
       }
     }
+
+    formRef.current?.reset();
+    setIsSubmitting(false);
   };
 
   return (
     <>
+      {(isUploading || isSubmitting) && <Loader />}
       <div className='grid gap-2 mt-6'>
         <Label htmlFor='video'>Unggah Konten (Video)</Label>
         <Input type='file' accept='video/*' onChange={handleFileChange} />
