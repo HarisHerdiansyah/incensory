@@ -228,3 +228,8 @@ export const faqs = [
       'Incensory dirancang dengan mempertimbangkan keselamatan pengguna. Semua bahan yang digunakan telah melalui pengujian dan memenuhi standar keselamatan yang ketat.',
   },
 ];
+
+export const origins = [
+  'http://localhost:5173',
+  'https://webxr-viewer-test.vercel.app',
+];
