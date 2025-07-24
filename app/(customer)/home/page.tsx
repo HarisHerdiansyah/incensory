@@ -77,7 +77,6 @@ export default async function HomePage() {
                   category={content.category}
                   description={content.description}
                   image={thumbnail[content.category]}
-                  source={content.source}
                 />
               ))
             ) : (
