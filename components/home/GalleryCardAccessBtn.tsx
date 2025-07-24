@@ -7,8 +7,10 @@ import { Button } from '../ui/button';
 
 export default function GalleryCardAccessBtn({
   category,
+  source,
 }: {
   category: string;
+  source: string;
 }) {
   const router = useRouter();
 
@@ -18,7 +20,7 @@ export default function GalleryCardAccessBtn({
       body: JSON.stringify({ category }),
     });
     const data = await response.json();
-    const targetUrl = new URL(process.env.NEXT_PUBLIC_VR_URL as string);
+    const targetUrl = new URL(source);
     targetUrl.searchParams.set('token', data.data.token);
     return router.push(targetUrl.toString());
   }, [category, router]);

@@ -33,7 +33,6 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(formRef.current!);
-    formData.set('source', window.sessionStorage.getItem('videoKey') as string);
 
     setIsSubmitting(true);
 
