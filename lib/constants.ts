@@ -232,4 +232,5 @@ export const faqs = [
 export const origins = [
   'http://localhost:5173',
   'https://webxr-viewer-test.vercel.app',
+  'https://staging.d3szf73w99g6sv.amplifyapp.com',
 ];
