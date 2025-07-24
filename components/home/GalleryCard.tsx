@@ -1,6 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
-import { Button } from '../ui/button';
-import { RectangleGoggles, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import {
   Dialog,
   DialogContent,

@@ -21,7 +21,7 @@ export default function GalleryCardAccessBtn({
     const targetUrl = new URL(process.env.NEXT_PUBLIC_VR_URL as string);
     targetUrl.searchParams.set('token', data.data.token);
     return router.push(targetUrl.toString());
-  }, []);
+  }, [category, router]);
 
   return (
     <Button
