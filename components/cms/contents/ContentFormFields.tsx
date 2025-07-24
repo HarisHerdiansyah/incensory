@@ -13,21 +13,15 @@ import {
 } from '@/components/ui/select';
 
 type Props = {
-  mode: string;
   defaultValues?: {
     title: string;
     description: string;
     category: VRCategory;
     source: string;
   };
-  isVideoUploaded?: boolean;
 };
 
-export default function ContentFormFields({
-  mode,
-  defaultValues,
-  isVideoUploaded,
-}: Props) {
+export default function ContentFormFields({ defaultValues }: Props) {
   return (
     <>
       <div className='grid gap-2'>
@@ -37,7 +31,17 @@ export default function ContentFormFields({
           name='title'
           defaultValue={defaultValues?.title ?? ''}
           placeholder='Masukkan judul konten'
-          disabled={mode === 'add' && !isVideoUploaded}
+          required
+        />
+      </div>
+      
+      <div className='grid gap-2'>
+        <Label htmlFor='source'>Tautan Konten</Label>
+        <Input
+          id='source'
+          name='source'
+          defaultValue={defaultValues?.source ?? ''}
+          placeholder='Masukkan tautan konten'
           required
         />
       </div>
@@ -49,7 +53,6 @@ export default function ContentFormFields({
           name='description'
           defaultValue={defaultValues?.description ?? ''}
           placeholder='Tuliskan deskripsi konten'
-          disabled={mode === 'add' && !isVideoUploaded}
           required
         />
       </div>
@@ -59,7 +62,6 @@ export default function ContentFormFields({
         <Select
           name='category'
           defaultValue={defaultValues?.category ?? VRCategory.ACROPHOBIA}
-          disabled={mode === 'add' && !isVideoUploaded}
         >
           <SelectTrigger className='w-full'>
             <SelectValue placeholder='Pilih kategori' />
@@ -73,9 +75,6 @@ export default function ContentFormFields({
           </SelectContent>
         </Select>
       </div>
-
-      {/* source diset melalui upload file */}
-      <input type='hidden' name='source' value={defaultValues?.source ?? ''} />
     </>
   );
 }
