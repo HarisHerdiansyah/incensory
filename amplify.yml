@@ -25,6 +25,7 @@ frontend:
         - echo "SMTP_KEY=$SMTP_KEY" >> .env.production
         - echo "SMTP_SENDER=$SMTP_SENDER" >> .env.production
         - echo "JWT_SECRET=$JWT_SECRET" >> .env.production
+        - echo "VR_SECRET_KEY=$VR_SECRET_KEY" >> .env.production
         - pnpm run build
   artifacts:
     baseDirectory: .next
