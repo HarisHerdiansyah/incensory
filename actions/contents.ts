@@ -47,20 +47,6 @@ export async function updateContent(id: string, formData: FormData) {
   }
 
   try {
-    if ('source' in updatedContent) {
-      const previous = await db.vRContent.findUnique({
-        where: { id },
-        select: { source: true },
-      });
-
-      const oldSource = previous?.source;
-      const newSource = updatedContent.source;
-
-      if (oldSource && newSource && oldSource !== newSource) {
-        await deleteFilesFromS3([oldSource]);
-      }
-    }
-
     await db.vRContent.update({
       where: { id },
       data: { ...updatedContent },
@@ -77,15 +63,6 @@ export async function updateContent(id: string, formData: FormData) {
 // DELETE
 export async function archiveContent(id: string, isVisible: boolean) {
   try {
-    const data = await db.vRContent.findUnique({
-      where: { id },
-      select: { source: true },
-    });
-
-    if (data?.source) {
-      await deleteFilesFromS3([data.source]);
-    }
-
     await db.vRContent.update({
       where: { id },
       data: { isVisible },

@@ -4,12 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import Loader from '@/components/Loader';
 import ContentFormFields from './ContentFormFields';
 import { insertContent, updateContent } from '@/actions/contents';
-import { clientUploadUtils, diffing } from '@/lib/utils';
+import { diffing } from '@/lib/utils';
 import { VRCategory } from '@prisma/client';
 
 type Mode = 'add' | 'edit';
@@ -28,40 +26,11 @@ type Props = {
 export default function VRContentForm({ mode, contentId, initialData }: Props) {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
-  const [videoFile, setVideoFile] = useState<File | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isVideoUploaded, setIsVideoUploaded] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setVideoFile(file);
-  };
-
-  const handleUpload = async () => {
-    if (!videoFile) {
-      toast.error('Silakan pilih file terlebih dahulu');
-      return;
-    }
-
-    setIsUploading(true);
-    try {
-      const key = await clientUploadUtils(videoFile, 'contents');
-      window.sessionStorage.setItem('videoKey', key);
-      toast.success('File berhasil diunggah');
-      setIsVideoUploaded(true);
-    } catch (err) {
-      console.error('Upload error', err);
-      toast.error('Gagal mengunggah file');
-    } finally {
-      setIsUploading(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(formRef.current!);
-    formData.set('source', window.sessionStorage.getItem('videoKey') as string);
 
     setIsSubmitting(true);
 
@@ -70,7 +39,6 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
       if (result.success) {
         toast.success(result.message);
         router.back();
-        setVideoFile(null);
       } else {
         toast.error(result.message);
       }
@@ -97,27 +65,9 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
 
   return (
     <>
-      {(isUploading || isSubmitting) && <Loader />}
-      <div className='grid gap-2 mt-6'>
-        <Label htmlFor='video'>Unggah Konten (Video)</Label>
-        <Input type='file' accept='video/*' onChange={handleFileChange} />
-        <Button
-          className='cursor-pointer'
-          variant='secondary'
-          type='button'
-          onClick={handleUpload}
-          disabled={isUploading || !videoFile}
-        >
-          {isUploading ? 'Mengunggah...' : 'Unggah Video'}
-        </Button>
-      </div>
-
+      {isSubmitting && <Loader />}
       <form ref={formRef} onSubmit={handleSubmit} className='space-y-6 mt-6'>
-        <ContentFormFields
-          mode={mode}
-          defaultValues={initialData}
-          isVideoUploaded={isVideoUploaded}
-        />
+        <ContentFormFields defaultValues={initialData} />
         <div className='flex justify-between'>
           <Button
             variant='outline'
@@ -127,12 +77,7 @@ export default function VRContentForm({ mode, contentId, initialData }: Props) {
           >
             Kembali
           </Button>
-          <Button
-            variant='secondary'
-            type='submit'
-            className='cursor-pointer'
-            disabled={mode === 'add' && !isVideoUploaded}
-          >
+          <Button variant='secondary' type='submit' className='cursor-pointer'>
             {mode === 'add' ? 'Tambah Konten' : 'Simpan Perubahan'}
           </Button>
         </div>
