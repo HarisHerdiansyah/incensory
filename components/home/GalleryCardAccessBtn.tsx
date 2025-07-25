@@ -21,9 +21,10 @@ export default function GalleryCardAccessBtn({
     });
     const data = await response.json();
     const targetUrl = new URL(source);
+    targetUrl.searchParams.set('category', category.toLowerCase());
     targetUrl.searchParams.set('token', data.data.token);
     return router.push(targetUrl.toString());
-  }, [category, router]);
+  }, [category, router, source]);
 
   return (
     <Button

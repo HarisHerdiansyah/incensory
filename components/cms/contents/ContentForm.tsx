@@ -4,12 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useState, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import Loader from '@/components/Loader';
 import ContentFormFields from './ContentFormFields';
 import { insertContent, updateContent } from '@/actions/contents';
-import { clientUploadUtils, diffing } from '@/lib/utils';
+import { diffing } from '@/lib/utils';
 import { VRCategory } from '@prisma/client';
 
 type Mode = 'add' | 'edit';
