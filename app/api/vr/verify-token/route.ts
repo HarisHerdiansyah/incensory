@@ -26,7 +26,7 @@ export async function GET(req: Request) {
     const auth = req.headers.get('Authorization');
     if (!auth?.startsWith('Bearer ')) {
       return NextResponse.json(
-        { success: false, message: '' },
+        { success: false, message: 'Token empty' },
         {
           status: 401,
           headers: {
@@ -49,7 +49,7 @@ export async function GET(req: Request) {
     });
     if (!user || !user.verification) {
       return NextResponse.json(
-        { success: false, message: '' },
+        { success: false, message: 'User is not registered or not verified.' },
         {
           status: 400,
           headers: {
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
     });
     if (!isCodeValid) {
       return NextResponse.json(
-        { success: false, message: '' },
+        { success: false, message: 'Access code is invalid.' },
         {
           status: 400,
           headers: {
@@ -76,7 +76,11 @@ export async function GET(req: Request) {
     }
 
     return NextResponse.json(
-      { success: true, message: '', data: { category: payload.category } },
+      {
+        success: true,
+        message: 'Success verifying token. Enjoy the content.',
+        data: { category: payload.category },
+      },
       {
         status: 200,
         headers: {
@@ -87,7 +91,7 @@ export async function GET(req: Request) {
   } catch (error) {
     console.error('[VR_VERIFY_TOKEN]', error);
     return NextResponse.json(
-      { success: false, message: '' },
+      { success: false, message: 'Internal server error.' },
       {
         status: 500,
         headers: {
