@@ -10,13 +10,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { navigation } from '@/lib/constants';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 
 export default function LandingSidebar() {
   return (
     <Sheet>
       <SheetTrigger className='md:hidden'>
-        <Menu />
+        <Menu color='white' size={32} />
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -24,16 +24,17 @@ export default function LandingSidebar() {
           <ul>
             {navigation.map((navItem) => {
               if (navItem.href.startsWith('/')) {
-                return (
-                  <li
-                    key={navItem.label}
-                    className='border-b border-slate-300 py-3'
-                  >
-                    <Link href={navItem.href}>
-                      <Button variant='secondary'>Masuk</Button>
-                    </Link>
-                  </li>
-                );
+                return null;
+                // return (
+                //   <li
+                //     key={navItem.label}
+                //     className='border-b border-slate-300 py-3'
+                //   >
+                //     <Link href={navItem.href}>
+                //       <Button variant='secondary'>Masuk</Button>
+                //     </Link>
+                //   </li>
+                // );
               } else {
                 return (
                   <li

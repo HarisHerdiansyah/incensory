@@ -1,69 +1,110 @@
-import React from 'react';
-import {
-  Mail,
-  MapPin,
-  Phone,
-  Clock,
-  Instagram,
-  Youtube,
-} from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Illust, TeamPhoto, WordingSquare } from '@/assets';
+import Link from 'next/link';
+import { Mail, MapPin, Phone, Clock, Instagram, Youtube } from 'lucide-react';
+import {
+  Cencen,
+  Kemenyan,
+  CencenFront,
+  WordingWhite,
+  TeamPhoto,
+} from '@/assets';
 import {
   contentLists,
+  products,
   service,
-  navigation,
   teams,
   contactDetails,
   faqs,
+  navigation,
 } from '@/lib/constants';
-import ContactForm from '@/components/ContactForm';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import LandingNavbar from '@/components/LandingNavbar';
+import LandingProductCard from '@/components/LandingProductCard';
+import ContactForm from '@/components/ContactForm';
+import LandingSidebar from '@/components/LandingSidebar';
 
-export default function page() {
+export default function Page() {
   return (
     <>
-      <LandingNavbar />
-
-      <div className='bg-muted w-full min-h-screen grid lg:grid-cols-2 p-8 sm:p-12 md:p-16 gap-4 md:gap-8 items-center justify-items-center'>
-        <div className='bg-white w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center relative overflow-hidden'>
-          <Image
-            src={WordingSquare}
-            alt='Photo-1'
-            className='object-cover'
-            fill
-          />
-        </div>
-        <article className='justify-self-start space-y-3'>
-          <p className='text-2xl md:text-4xl font-semibold'>Incensory</p>
-          <p className='text-lg md:text-xl text-secondary'>
-            Multisensori terapi dengan bantuan Virtual Reality untuk fobia
-            spesifik
+      {/* Hero Section */}
+      <div
+        id='heroSection'
+        className='w-full min-h-screen relative overflow-hidden'
+        style={{
+          background: `linear-gradient(135deg, #104056 0%, #0a2d3d 50%, #051a24 100%)`,
+        }}
+      >
+        {/* Hero Content */}
+        <div className='my-16 p-8 sm:p-12 md:p-16 text-white uppercase flex flex-col items-center justify-center text-center'>
+          <p className='my-2 text-xl'>
+            Program Kreativitas Mahasiswa Kewirausahaan 2025
           </p>
-          <div className='flex items-center gap-x-2'>
-            <Link href='/register'>
-              <Button className='cursor-pointer' variant='secondary'>
-                Mulai
-              </Button>
-            </Link>
-            <Button
-              className='cursor-pointer text-secondary font-semibold'
-              variant='link'
-            >
-              Pelajari Lebih Lanjut
-            </Button>
-          </div>
-        </article>
+          <p className='text-xl'>Universitas Padjadjaran</p>
+          <Image src={WordingWhite} alt='Incensort' width={600} height={200} />
+          <p className='my-8 text-xl'>
+            Terapi Multisensori Kombinasi Parfum Kemenyan & Virtual Reality
+            untuk Fobia Spesifik
+          </p>
+          {/* <Button className='rounded-full font-semibold text-lg bg-white text-primary cursor-pointer hover:bg-accent'>
+            Bergabung Sekarang
+          </Button> */}
+        </div>
+
+        {/* Bottom Wave */}
+        <div className='absolute bottom-0 left-0 right-0'>
+          <svg viewBox='0 0 1200 120' fill='none' className='w-full h-auto'>
+            <path
+              d='M0,60 C300,120 900,0 1200,60 L1200,120 L0,120 Z'
+              fill='rgba(255,255,255,0.1)'
+            />
+          </svg>
+        </div>
       </div>
 
+      {/* Navbar */}
+      <nav className='py-4 px-6 md:px-10 lg:px-14 sticky top-4 z-50'>
+        <div className='mx-auto bg-primary w-full rounded-full px-6 py-2 flex items-center justify-between'>
+          <Image src={WordingWhite} alt='Incensort' width={200} height={66} />
+          <div className='hidden md:flex items-center text-white gap-x-6 font-semibold text-lg'>
+            {navigation.map((navItem) => {
+              if (navItem.href.startsWith('/')) {
+                return null;
+                // return (
+                //   <Link
+                //     className='hover:underline'
+                //     href={navItem.href}
+                //     key={navItem.label}
+                //   >
+                //     <Button
+                //       className='cursor-pointer'
+                //       variant={scrolled ? 'outline' : 'secondary'}
+                //     >
+                //       {navItem.label}
+                //     </Button>
+                //   </Link>
+                // );
+              } else {
+                return (
+                  <Link
+                    className='hover:underline font-semibold'
+                    href={navItem.href}
+                    key={navItem.label}
+                  >
+                    {navItem.label}
+                  </Link>
+                );
+              }
+            })}
+          </div>
+          <LandingSidebar />
+        </div>
+      </nav>
+
+      {/* Tentang | About */}
       <section
         id='about'
         className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
@@ -83,26 +124,28 @@ export default function page() {
             modern yang ilmiah, imersif, dan aman.
           </p>
         </article>
-        <div className='my-12 flex justify-center items-center gap-8 flex-wrap'>
-          {contentLists.map((content) => (
-            <div className='rounded-lg p-2' key={content.title}>
-              <Image
-                className='rounded-lg'
-                src={content.image}
-                alt={content.title}
-                width={300}
-                height={300}
-              />
-              <p className='text-center italic'>{content.title}</p>
-            </div>
-          ))}
+        <div className='my-12 flex justify-evenly items-end gap-8 flex-wrap'>
+          <div className='text-center space-y-1.5'>
+            <Image
+              src={Cencen}
+              alt='Maskot Incensory | Cencen'
+              width={250}
+              height={250}
+            />
+            <p className='italic'>Cencen (Maskot Incensory)</p>
+          </div>
+          <div className='text-center space-y-1.5'>
+            <Image src={Kemenyan} alt='Kemenyan' width={300} height={300} />
+            <p className='italic'>Kemenyan (Styrax Benzoin)</p>
+          </div>
         </div>
       </section>
 
+      {/* Mengapa memilih Incensory? */}
       <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'>
         <article className='text-center space-y-4'>
           <p className='text-2xl md:text-4xl font-semibold'>
-            Apa yang Kami Tawarkan?
+            Mengapa memilih Incensory?
           </p>
         </article>
         <div className='my-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
@@ -117,9 +160,19 @@ export default function page() {
         </div>
       </section>
 
+      {/* Maskot dan Tagline */}
       <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'>
         <div className='grid grid-cols-1 lg:grid-cols-2 items-center justify-items-center gap-8'>
-          <article className='space-y-3 text-center lg:text-right'>
+          <div className='text-center space-y-1.5'>
+            <Image
+              src={CencenFront}
+              alt='Maskot Incensory | Cencen'
+              width={250}
+              height={250}
+            />
+            <p className='italic'>Cencen (Maskot Incensory)</p>
+          </div>
+          <article className='space-y-3 text-center lg:text-left'>
             <p className='text-2xl md:text-4xl font-semibold italic'>
               Feel it. Face it. Heal it.
             </p>
@@ -128,80 +181,72 @@ export default function page() {
               menghadapi ketakutan dengan cara yang ilmiah dan manusiawi.
             </p>
           </article>
-          <div className='w-[250px] h-[250px] md:w-[300px] md:h-[300px] rounded-full flex items-center justify-center relative overflow-hidden'>
-            <Image src={Illust} alt='Photo-2' className='object-cover' fill />
-          </div>
         </div>
       </section>
 
-      {/* <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'>
+      {/* Produk | Product */}
+      <section
+        id='product'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-secondary'
+      >
         <article className='text-center space-y-4'>
-          <p className='text-2xl md:text-4xl font-semibold'>Apa Kata Mereka?</p>
+          <p className='text-2xl md:text-4xl font-semibold text-white'>
+            Produk Incensory
+          </p>
         </article>
-        <div className='my-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
-          <div className='rounded-lg bg-white p-4 space-y-6'>
-            <p className='italic'>
-              "Incensory telah membantu saya menghadapi ketakutan saya dengan
-              cara yang tidak pernah saya bayangkan sebelumnya."
-            </p>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-x-2'>
-                <CircleUserRound size={34} />
-                <aside className='text-sm'>
-                  <p className='font-semibold'>John Doe</p>
-                  <p className='italic'>john@gmail.com</p>
-                </aside>
-              </div>
-              <div className='flex items-center gap-x-2'>
-                <Star size={24} fill='yellow' color='yellow' />
-                <p className='font-semibold'>4/5</p>
-              </div>
-            </div>
-          </div>
-          <div className='rounded-lg bg-white p-4 space-y-6'>
-            <p className='italic'>
-              "Incensory telah membantu saya menghadapi ketakutan saya dengan
-              cara yang tidak pernah saya bayangkan sebelumnya."
-            </p>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-x-2'>
-                <CircleUserRound size={34} />
-                <aside className='text-sm'>
-                  <p className='font-semibold'>John Doe</p>
-                  <p className='italic'>john@gmail.com</p>
-                </aside>
-              </div>
-              <div className='flex items-center gap-x-2'>
-                <Star size={24} fill='yellow' color='yellow' />
-                <p className='font-semibold'>4/5</p>
-              </div>
-            </div>
-          </div>
-          <div className='rounded-lg bg-white p-4 space-y-6'>
-            <p className='italic'>
-              "Incensory telah membantu saya menghadapi ketakutan saya dengan
-              cara yang tidak pernah saya bayangkan sebelumnya."
-            </p>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-x-2'>
-                <CircleUserRound size={34} />
-                <aside className='text-sm'>
-                  <p className='font-semibold'>John Doe</p>
-                  <p className='italic'>john@gmail.com</p>
-                </aside>
-              </div>
-              <div className='flex items-center gap-x-2'>
-                <Star size={24} fill='yellow' color='yellow' />
-                <p className='font-semibold'>4/5</p>
-              </div>
-            </div>
-          </div>
+        <div className='my-12 flex items-center justify-center flex-wrap gap-8'>
+          {products.map((item) => (
+            <LandingProductCard
+              key={item.name}
+              image={item.image}
+              name={item.name}
+              price={item.price}
+            />
+          ))}
         </div>
-      </section> */}
+      </section>
 
+      <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'>
+        <article className='text-center space-y-4'>
+          <p className='text-2xl md:text-4xl font-semibold'>
+            Rasakan pengalaman imersif!
+          </p>
+          <p className='md:text-lg'>
+            Akses langsung konten-konten VR berikut! Rasakan langsung pengalaman
+            nyata di lingkungan virtual!
+          </p>
+        </article>
+        <div className='my-12 flex justify-center items-center gap-8 flex-wrap'>
+          {contentLists.map((content) => (
+            <Link
+              key={content.title}
+              href={`https://vr.incensory.id${content.target}`}
+              target='_blank'
+            >
+              <div className='rounded-lg relative overflow-hidden'>
+                <Image
+                  className='rounded-lg'
+                  src={content.image}
+                  alt={content.title}
+                  width={300}
+                  height={300}
+                />
+                <div
+                  className='absolute inset-0 text-white font-semibold uppercase flex items-center justify-center cursor-pointer'
+                  style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+                >
+                  <p>{content.title}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Tim Kami | ourTeam */}
       <section
         id='ourTeam'
-        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'
       >
         <article className='text-center space-y-4'>
           <p className='text-2xl md:text-4xl font-semibold'>
@@ -223,13 +268,13 @@ export default function page() {
               height={700}
             />
             <p className='text-center italic'>
-              Tim Incensory - Universitas Padjadjaran
+              Tim PKM-K 2025 Incensory - Universitas Padjadjaran
             </p>
           </div>
         </div>
         <div className='my-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'>
           {teams.map((team) => (
-            <div className='bg-white rounded-lg text-center' key={team.name}>
+            <div className='rounded-lg text-center' key={team.name}>
               <p className='text-lg font-semibold'>{team.name}</p>
               <p className='text-sm italic'>
                 {team.role} - {team.major}
@@ -239,33 +284,37 @@ export default function page() {
         </div>
       </section>
 
+      {/* Kontak | Contact */}
       <section
         id='contact'
-        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-muted'
+        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
       >
         <article className='text-center space-y-4'>
-          <p className='text-2xl md:text-4xl font-semibold'>
-            Tertarik? Segera Hubungi Kami!
+          <p className='text-2xl md:text-4xl font-semibold'>Kontak Kami</p>
+          <p className='md:text-lg'>
+            Hubungi kami melalui formulir berikut atau kunjungi informasi yang
+            tertera.
           </p>
         </article>
-        <div className='flex justify-center my-14'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 my-4'>
           <ContactForm />
-        </div>
-        <p className='text-center text-xl md:text-2xl font-semibold'>
-          Atau, gunakan informasi berikut untuk menghubungi kami:
-        </p>
-        <div className='my-12 grid grid-cols-1 md:grid-cols-2 gap-8'>
-          {contactDetails.map((item) => (
-            <div className='bg-white rounded-lg p-4 space-y-4' key={item.title}>
-              <p className='text-lg font-semibold flex items-center gap-x-2'>
-                <item.icon /> {item.title}
-              </p>
-              <p>{item.description}</p>
-            </div>
-          ))}
+          <div className='grid grid-cols-1 gap-8'>
+            {contactDetails.map((item) => (
+              <div
+                className='bg-secondary text-white rounded-lg p-4 space-y-4'
+                key={item.title}
+              >
+                <p className='text-lg font-semibold flex items-center gap-x-2'>
+                  <item.icon /> {item.title}
+                </p>
+                <p>{item.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
+      {/* FAQ */}
       <section
         id='faq'
         className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'
@@ -291,7 +340,13 @@ export default function page() {
         </div>
       </section>
 
-      <footer className='bg-secondary py-4 text-secondary-foreground'>
+      {/* Footer */}
+      <footer
+        className='py-4 text-white'
+        style={{
+          background: `linear-gradient(135deg, #104056 0%, #0a2d3d 50%, #051a24 100%)`,
+        }}
+      >
         <div className='max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-8 text-sm'>
           <div>
             <h3 className='text-xl font-semibold mb-2 '>Incensory</h3>
@@ -328,7 +383,7 @@ export default function page() {
                 <Phone size={18} /> 0895-3704-93300
               </li>
               <li className='flex items-center gap-x-2'>
-                <Mail size={18} /> incensory@incensory.id
+                <Mail size={18} /> incensorypimnas38@gmail.com
               </li>
               <li className='flex items-center gap-x-2'>
                 <Clock size={18} /> Senin-Jumat, 09.00-17.00
