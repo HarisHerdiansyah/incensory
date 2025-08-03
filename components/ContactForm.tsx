@@ -30,7 +30,7 @@ export default function ContactForm() {
       {isPending && <Loader />}
       <form
         action={formAction}
-        className='pt-12 px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
+        className='pt-12 px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6 border border-slate-300 h-min'
       >
         {contactForm.map((field) => (
           <div id='formControl' key={field.id}>

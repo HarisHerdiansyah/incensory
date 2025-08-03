@@ -1,4 +1,11 @@
-import { AcroIllust, ClaustroIllust, NyctoIllust } from '@/assets';
+import {
+  AcroIllust,
+  ClaustroIllust,
+  Jero,
+  NyctoIllust,
+  Peteng,
+  Timbo,
+} from '@/assets';
 import {
   Leaf,
   Droplet,
@@ -82,7 +89,11 @@ export const routes = {
 export const navigation = [
   {
     href: '#about',
-    label: 'Tentang Produk',
+    label: 'Tentang',
+  },
+  {
+    href: '#product',
+    label: 'Produk',
   },
   {
     href: '#ourTeam',
@@ -91,10 +102,6 @@ export const navigation = [
   {
     href: '#contact',
     label: 'Kontak',
-  },
-  {
-    href: '#faq',
-    label: 'FAQ',
   },
   {
     href: '/login',
@@ -106,14 +113,17 @@ export const contentLists = [
   {
     title: 'Akrofobia',
     image: AcroIllust,
+    target: '/timbo/index.html',
   },
   {
     title: 'Klaustrofobia',
     image: ClaustroIllust,
+    target: '/jero/index.html',
   },
   {
     title: 'Niktofobia',
     image: NyctoIllust,
+    target: '/peteng/index.html',
   },
 ];
 
@@ -187,6 +197,24 @@ export const service = [
   },
 ];
 
+export const products = [
+  {
+    image: Jero,
+    name: 'Jero',
+    price: 180000,
+  },
+  {
+    image: Peteng,
+    name: 'Peteng',
+    price: 180000,
+  },
+  {
+    image: Timbo,
+    name: 'Timbo',
+    price: 180000,
+  },
+];
+
 export const contactDetails = [
   {
     icon: MapPin,
@@ -197,7 +225,7 @@ export const contactDetails = [
   {
     icon: Mail,
     title: 'Email:',
-    description: 'incensory@incensory.id',
+    description: 'incensorypimnas38@gmail.com',
   },
   {
     icon: Phone,
