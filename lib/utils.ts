@@ -4,19 +4,28 @@ import {
   S3Client,
   DeleteObjectsCommand,
   PutObjectCommand,
+  S3ClientConfig,
 } from '@aws-sdk/client-s3';
 import { v4 as uuidv4 } from 'uuid';
 
 const BUCKET_NAME = process.env.S3_BUCKET!;
 
-export const s3Client = new S3Client({
-  region: 'auto',
-  endpoint: process.env.S3_ENDPOINT as string,
+const config: S3ClientConfig = {
+  region:
+    process.env.NODE_ENV === 'development'
+      ? 'auto'
+      : (process.env.S3_REGION as string),
   credentials: {
     accessKeyId: process.env.S3_ACCESS_KEY as string,
     secretAccessKey: process.env.S3_SECRET_KEY as string,
   },
-});
+};
+
+if (process.env.NODE_ENV === 'development') {
+  config.endpoint = process.env.S3_ENDPOINT as string;
+}
+
+export const s3Client = new S3Client(config);
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

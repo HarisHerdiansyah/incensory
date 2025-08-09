@@ -59,15 +59,14 @@ export default function ProductCard({
           <div className='embla__container w-[200px]'>
             {productImages.map((image) => (
               <div
-                className='border h-[200px] rounded-lg embla__slide'
+                className='border h-[200px] rounded-lg embla__slide flex items-center justify-center'
                 key={image.id}
               >
                 <Image
                   src={`${process.env.NEXT_PUBLIC_S3_PUBLIC_URL}/${image.source}`}
                   alt={name}
-                  width={150}
-                  height={150}
-                  className='mx-auto'
+                  width={180}
+                  height={180}
                 />
               </div>
             ))}
