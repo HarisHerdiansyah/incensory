@@ -19,6 +19,7 @@ frontend:
         - echo "S3_ENDPOINT=$S3_ENDPOINT" >> .env.production
         - echo "S3_BUCKET=$S3_BUCKET" >> .env.production
         - echo "S3_PUBLIC_URL=$S3_PUBLIC_URL" >> .env.production
+        - echo "S3_REGION=$S3_REGION" >> .env.production
         - echo "NEXT_PUBLIC_S3_PUBLIC_URL=$NEXT_PUBLIC_S3_PUBLIC_URL" >> .env.production
         - echo "SMTP_HOST=$SMTP_HOST" >> .env.production
         - echo "SMTP_USER=$SMTP_USER" >> .env.production

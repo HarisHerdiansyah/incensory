@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Wording } from '@/assets';
+import { WordingWhite } from '@/assets';
 import {
   Sidebar,
   SidebarProvider,
@@ -14,11 +14,21 @@ export default function CustomerLayout({
   return (
     <SidebarProvider>
       <Sidebar>
-        <div className='w-full h-full border-r-4 border-secondary p-6'>
-          <Image src={Wording} alt='Incensory' width={220} height={120} />
+        <div
+          className='w-full h-full p-6'
+          style={{
+            background: `linear-gradient(135deg, #104056 0%, #0a2d3d 50%, #051a24 100%)`,
+          }}
+        >
+          <Image src={WordingWhite} alt='Incensory' width={220} height={120} />
           <SidebarContent />
         </div>
-        <SidebarFooter className='border-r-4 border-secondary'>
+        <SidebarFooter
+          className='border-secondary'
+          style={{
+            background: `linear-gradient(135deg, #104056 0%, #0a2d3d 50%, #051a24 100%)`,
+          }}
+        >
           <LogoutBtn />
         </SidebarFooter>
       </Sidebar>

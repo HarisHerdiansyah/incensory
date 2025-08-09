@@ -25,8 +25,6 @@ export function ImageUploadMultiple({
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [deletedImages, setDeletedImages] = useState<string[]>([]);
 
-  console.log(currentImages);
-
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
