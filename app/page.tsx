@@ -10,7 +10,6 @@ import {
 } from '@/assets';
 import {
   contentLists,
-  products,
   service,
   teams,
   contactDetails,
@@ -23,11 +22,36 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import LandingProductCard from '@/components/LandingProductCard';
+import { Button } from '@/components/ui/button';
 import ContactForm from '@/components/ContactForm';
 import LandingSidebar from '@/components/LandingSidebar';
+import { ProductCard } from '@/components/home';
+import { db } from '@/lib/db';
 
-export default function Page() {
+export default async function Page() {
+  const products = await db.product.findMany({
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      description: true,
+      product_images: {
+        select: {
+          id: true,
+          source: true,
+        },
+      },
+      product_links: {
+        select: {
+          id: true,
+          link: true,
+          target: true,
+        },
+      },
+    },
+    where: { isVisible: true },
+  });
+
   return (
     <>
       {/* Hero Section */}
@@ -44,14 +68,14 @@ export default function Page() {
             Program Kreativitas Mahasiswa Kewirausahaan 2025
           </p>
           <p className='text-xl'>Universitas Padjadjaran</p>
-          <Image src={WordingWhite} alt='Incensort' width={600} height={200} />
+          <Image src={WordingWhite} alt='Incensory' width={600} height={200} />
           <p className='my-8 text-xl'>
             Terapi Multisensori Kombinasi Parfum Kemenyan & Virtual Reality
             untuk Fobia Spesifik
           </p>
-          {/* <Button className='rounded-full font-semibold text-lg bg-white text-primary cursor-pointer hover:bg-accent'>
+          <Button className='rounded-full font-semibold text-lg bg-white text-primary cursor-pointer hover:bg-accent'>
             Bergabung Sekarang
-          </Button> */}
+          </Button>
         </div>
 
         {/* Bottom Wave */}
@@ -66,27 +90,23 @@ export default function Page() {
       </div>
 
       {/* Navbar */}
-      <nav className='py-4 px-6 md:px-10 lg:px-14 sticky top-4 z-50'>
+      <nav className='py-4 px-6 md:px-10 lg:px-14 sticky top-0 z-50'>
         <div className='mx-auto bg-primary w-full rounded-full px-6 py-2 flex items-center justify-between'>
           <Image src={WordingWhite} alt='Incensort' width={200} height={66} />
           <div className='hidden md:flex items-center text-white gap-x-6 font-semibold text-lg'>
             {navigation.map((navItem) => {
               if (navItem.href.startsWith('/')) {
-                return null;
-                // return (
-                //   <Link
-                //     className='hover:underline'
-                //     href={navItem.href}
-                //     key={navItem.label}
-                //   >
-                //     <Button
-                //       className='cursor-pointer'
-                //       variant={scrolled ? 'outline' : 'secondary'}
-                //     >
-                //       {navItem.label}
-                //     </Button>
-                //   </Link>
-                // );
+                return (
+                  <Link
+                    className='hover:underline'
+                    href={navItem.href}
+                    key={navItem.label}
+                  >
+                    <Button className='cursor-pointer text-lg bg-white text-primary rounded-full hover:bg-muted'>
+                      {navItem.label}
+                    </Button>
+                  </Link>
+                );
               } else {
                 return (
                   <Link
@@ -195,12 +215,14 @@ export default function Page() {
           </p>
         </article>
         <div className='my-12 flex items-center justify-center flex-wrap gap-8'>
-          {products.map((item) => (
-            <LandingProductCard
-              key={item.name}
-              image={item.image}
-              name={item.name}
-              price={item.price}
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              name={product.name}
+              price={Number(product.price)}
+              description={product.description}
+              productImages={product.product_images}
+              productLinks={product.product_links}
             />
           ))}
         </div>
@@ -218,11 +240,7 @@ export default function Page() {
         </article>
         <div className='my-12 flex justify-center items-center gap-8 flex-wrap'>
           {contentLists.map((content) => (
-            <Link
-              key={content.title}
-              href={`https://vr.incensory.id${content.target}`}
-              target='_blank'
-            >
+            <Link key={content.title} href='/home'>
               <div className='rounded-lg relative overflow-hidden'>
                 <Image
                   className='rounded-lg'

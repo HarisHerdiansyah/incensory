@@ -53,7 +53,7 @@ export default function ProductCard({
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <div className='w-[230px] h-[350px] p-3.5 border border-slate-200 rounded-lg shadow-sm flex flex-col justify-between'>
+    <div className='bg-white w-[230px] h-[350px] p-3.5 border border-slate-200 rounded-lg shadow-sm flex flex-col justify-between'>
       <div className='embla'>
         <div className='embla__viewport relative' ref={emblaRef}>
           <div className='embla__container w-[200px]'>
@@ -103,7 +103,7 @@ export default function ProductCard({
           <DialogTrigger className='p-2 bg-accent-foreground hover:bg-accent cursor-pointer hover:text-white rounded-md transition-all flex items-center justify-center gap-2 text-sm font-semibold border-accent border-2'>
             <Info size={18} strokeWidth={3} />
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className='bg-white'>
             <DialogHeader>
               <DialogTitle>{name}</DialogTitle>
               <DialogDescription className='text-base'>
@@ -122,7 +122,7 @@ export default function ProductCard({
             Belanja
           </PopoverTrigger>
           <PopoverContent
-            className='w-[180px] grid grid-cols-3 gap-2'
+            className='w-[180px] grid grid-cols-3 gap-2 bg-white'
             align='center'
           >
             {productLinks.map((link) => (
