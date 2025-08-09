@@ -10,6 +10,7 @@ import {
 } from '@/assets';
 import {
   contentLists,
+  products,
   service,
   teams,
   contactDetails,
