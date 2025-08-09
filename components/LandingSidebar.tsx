@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { navigation } from '@/lib/constants';
-// import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 
 export default function LandingSidebar() {
   return (
