@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: 'pub-9aae71d040b24b59ad3587c89ead1aa4.r2.dev',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.incensory.id',
+        pathname: '/**',
+      },
     ],
     minimumCacheTTL: 60,
   },

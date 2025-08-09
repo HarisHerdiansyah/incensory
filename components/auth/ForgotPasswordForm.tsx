@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useActionState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Wording } from '@/assets';
+import { WordingWhite } from '@/assets';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -31,10 +31,10 @@ export default function ForgotPasswordForm() {
       {isPending && <Loader />}
       <form
         action={formAction}
-        className='pt-12 px-6 sm:px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
+        className='pt-12 px-6 sm:px-8 pb-8 rounded-lg flex-1 max-w-[500px] space-y-6 text-white'
       >
         <div className='flex justify-center items-center'>
-          <Image src={Wording} alt='Incensory' width={220} height={120} />
+          <Image src={WordingWhite} alt='Incensory' width={220} height={120} />
         </div>
         {forgotPasswordForm.map((field) => (
           <div id='formControl' key={field.id}>
@@ -42,6 +42,7 @@ export default function ForgotPasswordForm() {
               {field.label}
             </Label>
             <Input
+              className='bg-primary border-t-0 border-l-0 border-r-0 border-b-2 border-b-white'
               type={field.type}
               id={field.id}
               name={field.id}
@@ -53,13 +54,13 @@ export default function ForgotPasswordForm() {
         <div className='flex justify-between gap-1.5'>
           <Link
             href='/register'
-            className='text-secondary hover:underline cursor-pointer text-center block'
+            className='text-white hover:underline cursor-pointer text-center block'
           >
             Daftar di sini
           </Link>
           <Link
             href='/login'
-            className='text-secondary hover:underline cursor-pointer text-center block'
+            className='text-white hover:underline cursor-pointer text-center block'
           >
             Masuk di sini
           </Link>

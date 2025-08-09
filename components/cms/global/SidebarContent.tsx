@@ -38,7 +38,7 @@ export default function SidebarContent() {
           >
             <Link
               className={`hover:bg-secondary hover:text-secondary-foreground p-1.5 rounded-lg font-semibold cursor-pointer flex items-center gap-2 ${
-                isActive ? 'bg-secondary text-white' : ''
+                isActive ? 'bg-secondary text-white' : 'text-white'
               }`}
               href={href}
             >

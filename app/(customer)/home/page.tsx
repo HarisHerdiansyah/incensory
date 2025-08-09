@@ -53,13 +53,13 @@ export default async function HomePage() {
             <TabsList className='w-full'>
               <TabsTrigger
                 value='therapy'
-                className='data-[state=active]:bg-primary cursor-pointer font-bold'
+                className='data-[state=active]:bg-primary data-[state=active]:text-white cursor-pointer font-bold'
               >
                 Ruang Terapi
               </TabsTrigger>
               <TabsTrigger
                 value='catalogue'
-                className='data-[state=active]:bg-primary cursor-pointer font-bold'
+                className='data-[state=active]:bg-primary data-[state=active]:text-white cursor-pointer font-bold'
               >
                 Katalog Produk
               </TabsTrigger>

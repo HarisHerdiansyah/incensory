@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { getSession, signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
 import { useState, useRef } from 'react';
-import { Wording } from '@/assets';
+import { WordingWhite } from '@/assets';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -54,10 +54,10 @@ export default function LoginForm() {
       <form
         ref={formRef}
         onSubmit={handleSubmit}
-        className='pt-12 px-6 sm:px-8 pb-8 rounded-md flex-1 max-w-[500px] bg-white space-y-6'
+        className='pt-12 px-6 sm:px-8 pb-8 rounded-lg flex-1 max-w-[500px] space-y-6 text-white'
       >
         <div className='flex justify-center items-center'>
-          <Image src={Wording} alt='Incensory' width={220} height={120} />
+          <Image src={WordingWhite} alt='Incensory' width={220} height={120} />
         </div>
         {loginForm.map((field) => (
           <div id='formControl' key={field.id}>
@@ -65,6 +65,7 @@ export default function LoginForm() {
               {field.label}
             </Label>
             <Input
+              className='bg-primary border-t-0 border-l-0 border-r-0 border-b-2 border-b-white'
               type={field.type}
               id={field.id}
               name={field.id}
@@ -76,20 +77,20 @@ export default function LoginForm() {
         <div className='flex justify-between gap-1.5'>
           <Link
             href='/register'
-            className='text-secondary hover:underline cursor-pointer text-center block'
+            className='text-white hover:underline cursor-pointer text-center block'
           >
             Daftar di sini
           </Link>
           <Link
             href='/forgot-password'
-            className='text-red-600 hover:underline cursor-pointer text-center block'
+            className='text-white hover:underline cursor-pointer text-center block'
           >
             Lupa kata sandi
           </Link>
         </div>
         <Link
           href='/verification'
-          className='text-secondary hover:underline cursor-pointer text-center block'
+          className='text-white hover:underline cursor-pointer text-center block'
         >
           Saya belum verifikasi akun
         </Link>
