@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { unstable_noStore as noStore } from 'next/cache';
 import { Mail, MapPin, Phone, Clock, Instagram, Youtube } from 'lucide-react';
 import {
   Cencen,
@@ -31,6 +32,7 @@ import { db } from '@/lib/db';
 export const revalidate = 60;
 
 export default async function Page() {
+  noStore();
   const products = await db.product.findMany({
     select: {
       id: true,
