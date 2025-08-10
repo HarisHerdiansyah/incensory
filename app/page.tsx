@@ -207,28 +207,30 @@ export default async function Page() {
       </section>
 
       {/* Produk | Product */}
-      <section
-        id='product'
-        className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-secondary'
-      >
-        <article className='text-center space-y-4'>
-          <p className='text-2xl md:text-4xl font-semibold text-white'>
-            Produk Incensory
-          </p>
-        </article>
-        <div className='my-12 flex items-center justify-center flex-wrap gap-8'>
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              price={Number(product.price)}
-              description={product.description}
-              productImages={product.product_images}
-              productLinks={product.product_links}
-            />
-          ))}
-        </div>
-      </section>
+      {products.length > 0 && (
+        <section
+          id='product'
+          className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-secondary'
+        >
+          <article className='text-center space-y-4'>
+            <p className='text-2xl md:text-4xl font-semibold text-white'>
+              Produk Incensory
+            </p>
+          </article>
+          <div className='my-12 flex items-center justify-center flex-wrap gap-8'>
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                price={Number(product.price)}
+                description={product.description}
+                productImages={product.product_images}
+                productLinks={product.product_links}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className='py-8 px-8 md:py-12 md:px-24 lg:py-16 lg:px-32 bg-white'>
         <article className='text-center space-y-4'>
