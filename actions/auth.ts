@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import { db } from '@/lib/db';
-import { emailHtmlContent } from '@/lib/utils';
+import { emailHtmlContent, formatPhoneNumber } from '@/lib/utils';
 
 type AuthFormState = { success: boolean | null; message: string };
 
@@ -102,7 +102,7 @@ export async function registerUser(
         username: values.username,
         email: values.email,
         password: hashedPassword,
-        phone_number: values.phoneNumber,
+        phone_number: formatPhoneNumber(values.phoneNumber),
       },
     });
 

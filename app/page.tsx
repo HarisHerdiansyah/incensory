@@ -77,9 +77,11 @@ export default async function Page() {
             Terapi Multisensori Kombinasi Parfum Kemenyan & Virtual Reality
             untuk Fobia Spesifik
           </p>
-          <Button className='rounded-full font-semibold text-lg bg-white text-primary cursor-pointer hover:bg-accent'>
-            Bergabung Sekarang
-          </Button>
+          <Link href='/register'>
+            <Button className='rounded-full font-semibold text-lg bg-white text-primary cursor-pointer hover:bg-accent'>
+              Bergabung Sekarang
+            </Button>
+          </Link>
         </div>
 
         {/* Bottom Wave */}

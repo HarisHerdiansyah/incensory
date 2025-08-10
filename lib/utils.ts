@@ -170,3 +170,31 @@ export function emailHtmlContent(username: string, verificationLink: string) {
   </html>`;
   return htmlContent;
 }
+
+export function formatPhoneNumber(number: string) {
+  if (!number) return '';
+  let s = String(number).trim();
+  s = s.replace(/[^\d+]/g, '');
+
+  if (s.startsWith('00')) s = s.slice(2);
+  if (s.startsWith('+')) s = s.slice(1);
+  s = s.replace(/\D/g, '');
+
+  let formatted = '';
+  if (s.startsWith('62')) {
+    formatted = s;
+  } else if (s.startsWith('0')) {
+    formatted = '62' + s.slice(1);
+  } else if (s.startsWith('8')) {
+    formatted = '62' + s;
+  } else {
+    formatted = '62' + s;
+  }
+
+  formatted = formatted.replace(/\D/g, '');
+  return formatted;
+}
+
+export function isValidPhoneNumber(formatted: string) {
+  return /^62\d{8,15}$/.test(formatted);
+}
