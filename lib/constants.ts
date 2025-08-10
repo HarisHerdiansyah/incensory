@@ -241,19 +241,30 @@ export const contactDetails = [
 
 export const faqs = [
   {
-    title: 'Apa itu Incensory?',
+    title: 'Apakah perangkat ini bisa digunakan untuk semua jenis fobia?',
     content:
-      'Incensory adalah produk inovatif yang menggabungkan aroma kemenyan, melati, dan vanili dengan teknologi audio untuk membantu mengatasi berbagai jenis fobia.',
+      'Ya. Perangkat ini dirancang fleksibel untuk berbagai jenis fobia, seperti takut gelap, takut ketinggian, atau ruang sempit. Konten simulasi dapat disesuaikan dengan kebutuhan terapi yang berbeda.',
   },
   {
-    title: 'Bagaimana cara kerja Incensory?',
+    title: 'Seberapa efektif fitur-fitur perangkat ini?',
     content:
-      'Incensory bekerja dengan memberikan stimulasi multisensori melalui aroma dan suara, yang dirancang khusus untuk membantu mengurangi kecemasan dan ketakutan yang terkait dengan fobia tertentu.',
+      'Dengan kombinasi VR, audio immersive, dan aroma natural, perangkat ini membantu menurunkan kecemasan lebih cepat, menciptakan rasa aman, dan meningkatkan kenyamanan terapi hingga 50% dibanding metode konvensional.',
   },
   {
-    title: 'Apakah Incensory aman digunakan?',
+    title:
+      'Sumber daya apa yang diperlukan untuk perangkat ini agar dapat bekerja?',
     content:
-      'Incensory dirancang dengan mempertimbangkan keselamatan pengguna. Semua bahan yang digunakan telah melalui pengujian dan memenuhi standar keselamatan yang ketat.',
+      'Perangkat ini hanya memerlukan headset VR dan koneksi daya listrik standar atau baterai internal yang sudah tersedia di paket pembelian. Untuk fitur audio & aroma, semua sudah terintegrasi sehingga tidak memerlukan perangkat tambahan.',
+  },
+  {
+    title: 'Berapa harga perangkat per unitnya?',
+    content:
+      'Harga bervariasi tergantung paket dan lisensi konten yang dipilih. Kami menyediakan opsi pembelian untuk kebutuhan individu. Informasi harga detail tersedia di halaman produk.',
+  },
+  {
+    title: 'Apakah perangkat ini aman dan tahan lama?',
+    content:
+      'Ya. Perangkat ini dibuat dari material berkualitas dengan aroma natural dan non-toxic. Semua komponen telah melalui uji keamanan dan dapat digunakan dalam jangka panjang dengan perawatan minimal.',
   },
 ];
 
