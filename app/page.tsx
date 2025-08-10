@@ -28,6 +28,8 @@ import LandingSidebar from '@/components/LandingSidebar';
 import { ProductCard } from '@/components/home';
 import { db } from '@/lib/db';
 
+export const revalidate = 60;
+
 export default async function Page() {
   const products = await db.product.findMany({
     select: {
