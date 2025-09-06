@@ -198,3 +198,24 @@ export function formatPhoneNumber(number: string) {
 export function isValidPhoneNumber(formatted: string) {
   return /^62\d{8,15}$/.test(formatted);
 }
+
+function generateAccessCode(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let code = '';
+
+  for (let i = 0; i < 8; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    code += chars[randomIndex];
+    if (i === 3) code += '-';
+  }
+
+  return code;
+}
+
+export function generateNAccessCode(n: number): string[] {
+  const codes = [];
+  for (let i = 0; i < n; i++) {
+    codes.push(generateAccessCode());
+  }
+  return codes;
+}

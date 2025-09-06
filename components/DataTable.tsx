@@ -42,7 +42,10 @@ export default function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className='font-bold bg-primary text-white'
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -63,7 +66,7 @@ export default function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className='font-semibold'>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -76,7 +79,7 @@ export default function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className='h-24 text-center font-semibold'
                 >
                   No results.
                 </TableCell>
@@ -91,6 +94,7 @@ export default function DataTable<TData, TValue>({
           size='sm'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          className='cursor-pointer'
         >
           Previous
         </Button>
@@ -99,6 +103,7 @@ export default function DataTable<TData, TValue>({
           size='sm'
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
+          className='cursor-pointer'
         >
           Next
         </Button>

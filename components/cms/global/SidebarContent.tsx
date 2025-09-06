@@ -2,13 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChartPie, ShoppingBasket, Video } from 'lucide-react';
+import { ChartPie, ShoppingBasket, UserLock, Video } from 'lucide-react';
 
 const links = [
   {
     href: '/cms/dashboard',
     icon: <ChartPie />,
     label: 'Dashboard',
+  },
+  {
+    href: '/cms/access-code',
+    icon: <UserLock />,
+    label: 'Kode Akses',
   },
   {
     href: '/cms/products',
