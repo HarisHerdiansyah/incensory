@@ -1,4 +1,3 @@
-import { Plus } from 'lucide-react';
 import { createAccessCode } from '@/actions/accessCode';
 import { db } from '@/lib/db';
 import DataTable from '@/components/DataTable';
