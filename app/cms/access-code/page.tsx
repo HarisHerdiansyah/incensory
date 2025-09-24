@@ -26,7 +26,7 @@ export default async function AccessCode() {
       },
     },
     orderBy: {
-      is_used: 'asc',
+      created_at: 'desc',
     },
   });
 
@@ -48,10 +48,11 @@ export default async function AccessCode() {
       <div className='flex justify-end'>
         <Popover>
           <PopoverTrigger>
-            <Button className='bg-secondary cursor-pointer'>
+            {/* <Button className='bg-secondary cursor-pointer'>
               <Plus />
               Tambah Kode
-            </Button>
+            </Button> */}
+            Tambah Kode
           </PopoverTrigger>
           <PopoverContent align='end' className='bg-white'>
             <form action={createAccessCode}>
