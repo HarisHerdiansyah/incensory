@@ -61,13 +61,13 @@ export default async function Page() {
       {/* Hero Section */}
       <div
         id='heroSection'
-        className='w-full min-h-screen relative overflow-hidden'
+        className='w-full min-h-screen relative overflow-hidden flex items-center justify-center'
         style={{
           background: `linear-gradient(135deg, #104056 0%, #0a2d3d 50%, #051a24 100%)`,
         }}
       >
         {/* Hero Content */}
-        <div className='my-16 p-8 sm:p-12 md:p-16 text-white uppercase flex flex-col items-center justify-center text-center'>
+        <div className='flex flex-col items-center justify-center text-center text-white uppercase h-full px-8 sm:px-12 md:px-16'>
           <p className='my-2 text-xl'>
             Program Kreativitas Mahasiswa Kewirausahaan 2025
           </p>
@@ -322,7 +322,7 @@ export default async function Page() {
             tertera.
           </p>
         </article>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 my-4'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 my-4 place-items-center'>
           <ContactForm />
           <div className='grid grid-cols-1 gap-8'>
             {contactDetails.map((item) => (
