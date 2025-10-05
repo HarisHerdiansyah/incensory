@@ -1,26 +1,11 @@
 'use client';
 
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Info, ShoppingCart } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { ShopeeLogo, TokopediaLogo, WhatsappLogo } from '@/assets';
 import { usePrevNextButtons } from '@/hooks/usePrevNextButton';
 import { toRupiah } from '@/lib/utils';
-import Link from 'next/link';
 
 type ProductType = {
   name: string;
@@ -30,18 +15,10 @@ type ProductType = {
   productLinks: { id: string; link: string; target: string }[];
 };
 
-const LOGO = {
-  SHOPEE: ShopeeLogo,
-  TOKOPEDIA: TokopediaLogo,
-  WHATSAPP: WhatsappLogo,
-};
-
 export default function ProductCard({
   name,
   price,
-  description,
   productImages,
-  productLinks,
 }: ProductType) {
   const [emblaRef, emblaApi] = useEmblaCarousel({});
 
