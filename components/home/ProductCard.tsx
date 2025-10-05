@@ -53,7 +53,7 @@ export default function ProductCard({
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <div className='bg-white w-[230px] h-[350px] p-3.5 border border-slate-200 rounded-lg shadow-sm flex flex-col justify-between'>
+    <div className='bg-white w-[230px] h-[300px] p-3.5 border border-slate-200 rounded-lg shadow-sm flex flex-col justify-between'>
       <div className='embla'>
         <div className='embla__viewport relative' ref={emblaRef}>
           <div className='embla__container w-[200px]'>
@@ -97,48 +97,48 @@ export default function ProductCard({
         <p>{toRupiah(price)}</p>
       </article>
 
-      <div className='flex gap-x-2'>
-        <Dialog>
-          <DialogTrigger className='p-2 bg-accent-foreground hover:bg-accent cursor-pointer hover:text-white rounded-md transition-all flex items-center justify-center gap-2 text-sm font-semibold border-accent border-2'>
-            <Info size={18} strokeWidth={3} />
-          </DialogTrigger>
-          <DialogContent className='bg-white'>
-            <DialogHeader>
-              <DialogTitle>{name}</DialogTitle>
-              <DialogDescription className='text-base'>
-                Harga: {price}
-              </DialogDescription>
-              <DialogDescription className='text-base'>
-                {description}
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+      {/*<div className='flex gap-x-2'>*/}
+      {/*  <Dialog>*/}
+      {/*    <DialogTrigger className='p-2 bg-accent-foreground hover:bg-accent cursor-pointer hover:text-white rounded-md transition-all flex items-center justify-center gap-2 text-sm font-semibold border-accent border-2'>*/}
+      {/*      <Info size={18} strokeWidth={3} />*/}
+      {/*    </DialogTrigger>*/}
+      {/*    <DialogContent className='bg-white'>*/}
+      {/*      <DialogHeader>*/}
+      {/*        <DialogTitle>{name}</DialogTitle>*/}
+      {/*        <DialogDescription className='text-base'>*/}
+      {/*          Harga: {price}*/}
+      {/*        </DialogDescription>*/}
+      {/*        <DialogDescription className='text-base'>*/}
+      {/*          {description}*/}
+      {/*        </DialogDescription>*/}
+      {/*      </DialogHeader>*/}
+      {/*    </DialogContent>*/}
+      {/*  </Dialog>*/}
 
-        <Popover>
-          <PopoverTrigger className='py-1.5 bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 cursor-pointer rounded-md transition-all flex items-center justify-center gap-2 flex-1'>
-            <ShoppingCart strokeWidth={2.5} />
-            Belanja
-          </PopoverTrigger>
-          <PopoverContent
-            className='w-[180px] grid grid-cols-3 gap-2 bg-white'
-            align='center'
-          >
-            {productLinks.map((link) => (
-              <Link href={link.link} target='_blank' key={link.id}>
-                <div className='border border-slate-300 p-2 rounded-lg mx-auto cursor-pointer'>
-                  <Image
-                    src={LOGO[link.target as keyof typeof LOGO]}
-                    alt={link.target}
-                    width={30}
-                    height={30}
-                  />
-                </div>
-              </Link>
-            ))}
-          </PopoverContent>
-        </Popover>
-      </div>
+      {/*  <Popover>*/}
+      {/*    <PopoverTrigger className='py-1.5 bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 cursor-pointer rounded-md transition-all flex items-center justify-center gap-2 flex-1'>*/}
+      {/*      <ShoppingCart strokeWidth={2.5} />*/}
+      {/*      Belanja*/}
+      {/*    </PopoverTrigger>*/}
+      {/*    <PopoverContent*/}
+      {/*      className='w-[180px] grid grid-cols-3 gap-2 bg-white'*/}
+      {/*      align='center'*/}
+      {/*    >*/}
+      {/*      {productLinks.map((link) => (*/}
+      {/*        <Link href={link.link} target='_blank' key={link.id}>*/}
+      {/*          <div className='border border-slate-300 p-2 rounded-lg mx-auto cursor-pointer'>*/}
+      {/*            <Image*/}
+      {/*              src={LOGO[link.target as keyof typeof LOGO]}*/}
+      {/*              alt={link.target}*/}
+      {/*              width={30}*/}
+      {/*              height={30}*/}
+      {/*            />*/}
+      {/*          </div>*/}
+      {/*        </Link>*/}
+      {/*      ))}*/}
+      {/*    </PopoverContent>*/}
+      {/*  </Popover>*/}
+      {/*</div>*/}
     </div>
   );
 }
