@@ -1,0 +1,202 @@
+// =============================================
+// Incensory ERD - Generated from Prisma Schema
+// Paste this into https://dbdiagram.io
+// =============================================
+
+// ----- Enums -----
+
+Enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+Enum VRCategory {
+  ACROPHOBIA
+  CLAUSTROPHOBIA
+  NYCTOPHOBIA
+}
+
+Enum LinkTarget {
+  SHOPEE
+  TOKOPEDIA
+  WHATSAPP
+}
+
+// ----- Tables -----
+
+Table users {
+  id varchar [pk, note: 'UUID']
+  username varchar [unique, not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+  phone_number varchar [not null, default: '']
+  role UserRole [not null, default: 'CUSTOMER']
+  verification boolean [not null, default: false]
+  profile_image varchar [null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+}
+
+Table access_code {
+  id varchar [pk, note: 'UUID']
+  code varchar [unique, not null]
+  is_used boolean [not null, default: false]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  user_id varchar [not null]
+}
+
+Table products {
+  id varchar [pk, note: 'UUID']
+  name varchar [not null]
+  description varchar [not null]
+  price decimal [not null]
+  isVisible boolean [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+}
+
+Table product_links {
+  id varchar [pk, note: 'UUID']
+  link varchar [not null]
+  target LinkTarget [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  product_id varchar [not null]
+}
+
+Table product_images {
+  id varchar [pk, note: 'UUID']
+  source varchar [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  product_id varchar [not null]
+}
+
+Table vr_contents {
+  id varchar [pk, note: 'UUID']
+  title varchar [not null]
+  description varchar [not null]
+  source varchar [not null]
+  isVisible boolean [not null]
+  category VRCategory [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+}
+
+Table user_ratings {
+  id varchar [pk, note: 'UUID']
+  rating integer [not null]
+  message varchar [null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  user_id varchar [not null]
+}
+
+// ----- Relationships -----
+
+Ref: access_code.user_id > users.id [delete: cascade]
+Ref: product_links.product_id > products.id [delete: cascade]
+Ref: product_images.product_id > products.id [delete: cascade]
+Ref: user_ratings.user_id > users.id [delete: cascade]
+// =============================================
+// Incensory ERD - Generated from Prisma Schema
+// Paste this into https://dbdiagram.io
+// =============================================
+
+// ----- Enums -----
+
+Enum UserRole {
+  CUSTOMER
+  ADMIN
+}
+
+Enum VRCategory {
+  ACROPHOBIA
+  CLAUSTROPHOBIA
+  NYCTOPHOBIA
+}
+
+Enum LinkTarget {
+  SHOPEE
+  TOKOPEDIA
+  WHATSAPP
+}
+
+// ----- Tables -----
+
+Table users {
+  id varchar [pk, note: 'UUID']
+  username varchar [unique, not null]
+  email varchar [unique, not null]
+  password varchar [not null]
+  phone_number varchar [not null, default: '']
+  role UserRole [not null, default: 'CUSTOMER']
+  verification boolean [not null, default: false]
+  profile_image varchar [null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+}
+
+Table access_code {
+  id varchar [pk, note: 'UUID']
+  code varchar [unique, not null]
+  is_used boolean [not null, default: false]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  user_id varchar [not null]
+}
+
+Table products {
+  id varchar [pk, note: 'UUID']
+  name varchar [not null]
+  description varchar [not null]
+  price decimal [not null]
+  isVisible boolean [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+}
+
+Table product_links {
+  id varchar [pk, note: 'UUID']
+  link varchar [not null]
+  target LinkTarget [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  product_id varchar [not null]
+}
+
+Table product_images {
+  id varchar [pk, note: 'UUID']
+  source varchar [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  product_id varchar [not null]
+}
+
+Table vr_contents {
+  id varchar [pk, note: 'UUID']
+  title varchar [not null]
+  description varchar [not null]
+  source varchar [not null]
+  isVisible boolean [not null]
+  category VRCategory [not null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+}
+
+Table user_ratings {
+  id varchar [pk, note: 'UUID']
+  rating integer [not null]
+  message varchar [null]
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null]
+  user_id varchar [not null]
+}
+
+// ----- Relationships -----
+
+Ref: access_code.user_id > users.id [delete: cascade]
+Ref: product_links.product_id > products.id [delete: cascade]
+Ref: product_images.product_id > products.id [delete: cascade]
+Ref: user_ratings.user_id > users.id [delete: cascade]
